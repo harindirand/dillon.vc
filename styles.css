@@ -8,3 +8,14 @@ body {
     margin: 0 auto;
     max-width: 800px; /* Adjust based on your preference */
 }
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .content {
+        width: 100%;
+        max-width: 600px; /* Adjust this value based on your design */
+    }
+}
