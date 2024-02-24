@@ -1,1 +1,16 @@
-<h1>Hello!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Display</title>
+</head>
+<body>
+    <pre id="textDisplay"></pre>
+    <script>
+        fetch('index.txt')
+            .then(response => response.text())
+            .then(text => document.getElementById('textDisplay').textContent = text);
+    </script>
+</body>
+</html>
