@@ -6,7 +6,15 @@ body {
 
 .content {
     margin: 0 auto;
+    padding: 0 20px; /* Added padding to content for better text alignment */
     max-width: 800px; /* Adjust based on your preference */
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+pre {
+    white-space: pre-wrap;       /* Allow text to wrap within <pre> */
+    word-wrap: break-word;       /* Break the word to prevent overflow */
+    overflow-wrap: break-word;   /* Ensure overflow text wraps into the next line */
 }
 
 @media (max-width: 768px) {
@@ -17,5 +25,6 @@ body {
     .content {
         width: 100%;
         max-width: 600px; /* Adjust this value based on your design */
+        padding: 0 10px; /* Adjusted padding for smaller screens */
     }
 }
