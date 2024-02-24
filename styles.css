@@ -15,16 +15,21 @@ pre {
     white-space: pre-wrap;       /* Allow text to wrap within <pre> */
     word-wrap: break-word;       /* Break the word to prevent overflow */
     overflow-wrap: break-word;   /* Ensure overflow text wraps into the next line */
+    overflow-x: auto; /* Allows horizontal scrolling for unbreakable content */
 }
 
 @media (max-width: 768px) {
     body {
         padding: 10px;
-        font-size: 0.9rem;
+        font-size: 0.8rem; /* Further reduced for smaller screens */
     }
     .content {
         width: 100%;
         max-width: 600px; /* Adjust this value based on your design */
         padding: 0 10px; /* Adjusted padding for smaller screens */
+    }
+    pre {
+        font-size: 0.8rem; /* Optionally adjust the font size specifically for <pre> */
+        /* Ensures <pre> text aligns well and is readable on small screens */
     }
 }
