@@ -1,5 +1,4 @@
 
-
 hi, i’m dillon.
 
 
@@ -9,7 +8,7 @@ i’m building something new in the legal ai space. i’m between sf and london 
 i was previously the ceo & co-founder of slipstream. we raised $1.1m and were part of neo’s ’23 batch. our investors included some of the earliest cheques into iconic companies like fb, uber, airbnb, dropbox, superhuman and airtable.
 
 
-v1: we started as a rentals-as-a-service start-up, helping iconic brands like bird rent out their products (similar to buy-now-pay-later) but realised we couldn’t scale into profitability.
+v1: we began as a rentals-as-a-service start-up, helping cool brands like bird rent out their products (similar to buy-now-pay-later) but discovered we had way to scale into profitability.
 
 
 v2: in the process, we discovered how broken the credit bureau industry was. we pivoted to build a real-time, accurate, credit bureau. after finding a novel way to crack the cold-start problem we discovered that collating accurate real-time data is impossible and returned funds.
