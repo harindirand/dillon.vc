@@ -11,7 +11,7 @@ I was previously the CEO & Co-Founder of Slipstream. We raised $1.1m and were pa
 v1: We started as a rentals-as-a-service start-up, helping iconic brands like Bird rent out their products (similar to Buy-Now-Pay-Later) but realised we couldn’t scale into profitability.
 
 
-v2: In the process, we discovered how broken the credit bureau industry was. We pivoted to build a real-time, accurate, credit bureau. After finding a novel way to crack the cold-start problem we discovered that real-time bureau data is impossible and returned funds.
+v2: In the process, we discovered how broken the credit bureau industry was. We pivoted to build a real-time, accurate, credit bureau. After finding a novel way to crack the cold-start problem we discovered that collating accurate real-time data is impossible and returned funds.
 
 
 I host meet-ups for the Hacker News community in London - most recently at Monzo and EQT. Our next is at Stride VC (date TBC).
