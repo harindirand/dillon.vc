@@ -14,13 +14,10 @@ v1: We started as a rentals-as-a-service start-up, helping iconic brands like Bi
 v2: In the process, we discovered how broken the credit bureau industry was. We pivoted to build a real-time, accurate, credit bureau. After finding a novel way to crack the cold-start problem we discovered that real-time bureau data is impossible and returned funds.
 
 
-I host meet-ups for the Hacker News community in London - most recently at Monzo and EQT. Our next is at Stride VC in March ’24.
+I host meet-ups for the Hacker News community in London - most recently at Monzo and EQT. Our next is at Stride VC (date TBC).
 
 
 I also host weekly dinners for founders & operators.
-
-
-If you’d like to come to either, check out foundersoperators.io
 
 
 calendly.com/dillon
