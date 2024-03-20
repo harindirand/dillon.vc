@@ -1,38 +1,38 @@
-body {
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
 .content {
-  padding: 0 20px;
+  padding: 20px;
   max-width: 800px;
   box-sizing: border-box;
   text-align: center;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  overflow-x: auto;
   text-align: left;
 }
 
 @media (max-width: 768px) {
-  body {
+  .content {
+    max-width: 600px;
     padding: 10px;
     font-size: 0.8rem;
-  }
-
-  .content {
-    width: 100%;
-    max-width: 600px;
-    padding: 0 10px;
   }
 
   pre {
