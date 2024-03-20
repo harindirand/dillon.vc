@@ -1,35 +1,41 @@
 body {
-    margin: 0;
-    padding: 20px;
-    font-family: Arial, sans-serif; /* Use your preferred font */
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .content {
-    margin: 0 auto;
-    padding: 0 20px; /* Added padding to content for better text alignment */
-    max-width: 800px; /* Adjust based on your preference */
-    box-sizing: border-box; /* Ensures padding is included in the width */
+  padding: 0 20px;
+  max-width: 800px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 pre {
-    white-space: pre-wrap;       /* Allow text to wrap within <pre> */
-    word-wrap: break-word;       /* Break the word to prevent overflow */
-    overflow-wrap: break-word;   /* Ensure overflow text wraps into the next line */
-    overflow-x: auto; /* Allows horizontal scrolling for unbreakable content */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: auto;
+  text-align: left;
 }
 
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-        font-size: 0.8rem; /* Further reduced for smaller screens */
-    }
-    .content {
-        width: 100%;
-        max-width: 600px; /* Adjust this value based on your design */
-        padding: 0 10px; /* Adjusted padding for smaller screens */
-    }
-    pre {
-        font-size: 0.8rem; /* Optionally adjust the font size specifically for <pre> */
-        /* Ensures <pre> text aligns well and is readable on small screens */
-    }
+  body {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 10px;
+  }
+
+  pre {
+    font-size: 0.8rem;
+  }
 }
