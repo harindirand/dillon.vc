@@ -4,19 +4,16 @@ Hi, I’m Dillon.
 I’m building something new in the legal AI space. I’m between SF and London right now.
 
 
-I was previously the CEO & Co-Founder of Slipstream. We raised $1.1M and were part of Neo’s ’23 batch. Our investors included some of the earliest checks into iconic companies like FB, Uber, Airbnb, Dropbox, Superhuman, and Airtable.
+I was previously the CEO & Co-Founder of Slipstream. We raised $1.1M, were part of Neo’s ’23 batch and our investors included some of the earliest checks into FB, Uber, Airbnb, Dropbox and Airtable.
 
 
-V1: We began as a rentals-as-a-service startup, helping cool brands like Bird rent out their products (similar to buy-now-pay-later) but discovered we had no way to scale into profitability despite hockey stick growth.
+V1: We began as a rentals-as-a-service startup, helping brands like Bird rent out their products (similar to buy-now-pay-later) but realised we had no way to scale into profitability.
 
 
 V2: In the process, we discovered how broken the credit bureau industry was. We pivoted to build a real-time credit bureau. After finding a novel way to crack the cold-start problem, we discovered that collating accurate real-time data was impossible and returned funds.
 
 
-I host meet-ups for the Hacker News community in London - most recently at Monzo and EQT. Our next is at Stride VC (date TBC).
-
-
-I also host weekly dinners for founders & operators.
+I host meet-ups for the Hacker News community in London and fortnightly dinners for founders & operators.
 
 
 calendly.com/dillon
