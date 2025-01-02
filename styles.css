@@ -105,7 +105,7 @@ pre {
 
 /* Toggle "ON" state (dark mode active) */
 input:checked + .slider {
-  background-color: #FF6F61; /* New color when toggle is ON (e.g., coral red) */
+  background-color: #EC545F; /* New color when toggle is ON (e.g., coral red) */
 }
 
 input:checked + .slider:before {
