@@ -38,8 +38,8 @@ body {
 .tile {
   background-color: var(--tile-bg-color); /* Tile background */
   color: var(--text-color); /* Tile text color */
-  padding: 20px;
-  border-radius: 10px; /* Rounded corners */
+  padding: 40px;
+  border-radius: 5px; /* Rounded corners */
   box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
   max-width: 800px;
   width: 90%;
