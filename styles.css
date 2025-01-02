@@ -3,7 +3,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 body {
@@ -13,7 +13,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #ffffff; /* Light mode background */
   color: #000000; /* Light mode text color */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for mode changes */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark mode */
 }
 
 body.dark-mode {
@@ -22,28 +22,43 @@ body.dark-mode {
 }
 
 .content {
+  width: 100%; /* Take up full screen width */
+  max-width: 800px; /* Limit the content width for readability */
+  height: 100%; /* Take up full screen height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 20px;
-  max-width: 800px;
   box-sizing: border-box;
-  text-align: center;
-  overflow-y: auto;
-  max-height: 100vh;
+  overflow: hidden; /* Prevent internal scrolling */
+  text-align: left; /* Ensure all text is left-aligned */
 }
 
-/* Responsive styles */
+/* Styling for <pre> to prevent scrolling and wrap text */
+pre {
+  white-space: pre-wrap; /* Wrap text to fit the container */
+  word-wrap: break-word; /* Break long words if needed */
+  overflow-wrap: break-word;
+  margin: 0; /* Remove any default margin */
+  text-align: left; /* Ensure text inside <pre> is left-aligned */
+  max-width: 100%; /* Prevent horizontal overflow */
+  max-height: 100%; /* Prevent vertical overflow */
+  overflow: hidden; /* Ensure no scrollbars appear */
+}
+
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .content {
-    max-width: 600px;
+    max-width: 90%; /* Adjust for smaller devices */
     padding: 10px;
-    font-size: 0.8rem;
   }
 
   pre {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
-/* Toggle switch styling */
+/* Dark mode toggle switch styling */
 .toggle-container {
   position: fixed;
   top: 10px;
