@@ -29,11 +29,12 @@ html, body {
 body {
   display: flex; /* Flexbox for centering */
   justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  align-items: flex-start; /* Align tile at the top */
   margin: 0;
   padding: 20px; /* Ensure consistent padding for all devices */
   background-color: transparent; /* Let html handle background color */
   box-sizing: border-box; /* Include padding in calculations */
+  overflow-y: auto; /* Allow vertical scrolling if necessary */
 }
 
 /* Tile styling */
@@ -47,6 +48,7 @@ body {
   height: auto; /* Allow natural height */
   max-width: 800px; /* Limit width */
   max-height: calc(100vh - 40px); /* Prevent overflow on small screens */
+  margin-top: 20px; /* Add spacing from the top of the viewport */
   box-sizing: border-box; /* Include padding in width/height calculations */
   overflow: auto; /* Allow scrolling inside the tile for overflowing content */
   text-align: left; /* Align text to the left */
@@ -64,7 +66,7 @@ body {
   box-sizing: border-box; /* Include padding in width calculations */
   display: flex; /* Center content */
   justify-content: center; /* Align content horizontally */
-  align-items: center; /* Align content vertically */
+  align-items: flex-start; /* Align content at the top */
 }
 
 /* Styling for <pre> to prevent scrolling and wrap text */
@@ -82,13 +84,15 @@ pre {
 @media (max-width: 768px) {
   body {
     padding: 20px 10px; /* Add more padding on smaller devices */
+    align-items: flex-start; /* Ensure tile is aligned from the top */
   }
 
   .tile {
     width: 90%; /* Make the tile occupy more space */
-    max-height: calc(100vh - 20px); /* Ensure tile fits within the viewport */
+    max-height: calc(100vh - 40px); /* Ensure tile fits within the viewport */
     padding: 20px; /* Reduce internal padding */
-    margin: 10px 0; /* Add vertical margin to prevent clipping */
+    margin-top: 10px; /* Add spacing from the top */
+    margin-bottom: 10px; /* Prevent bottom clipping */
   }
 
   pre {
@@ -103,8 +107,9 @@ pre {
   }
 
   .tile {
-    max-height: calc(100vh - 10px); /* Ensure tile fits even on short screens */
+    max-height: calc(100vh - 20px); /* Ensure tile fits even on short screens */
     padding: 15px; /* Adjust padding */
+    margin-top: 10px; /* Add spacing from the top */
   }
 }
 
