@@ -29,21 +29,21 @@
 
         // Dark mode toggle functionality
         const toggle = document.getElementById('darkModeToggle');
-        const body = document.body;
+        const html = document.documentElement;
 
         // Check and apply saved user preference
         if (localStorage.getItem('darkMode') === 'enabled') {
-            document.documentElement.classList.add('dark-mode'); // Apply to <html>
+            html.classList.add('dark-mode');
             toggle.checked = true;
         }
 
         // Listen for toggle change
         toggle.addEventListener('change', () => {
             if (toggle.checked) {
-                document.documentElement.classList.add('dark-mode'); // Apply to <html>
+                html.classList.add('dark-mode');
                 localStorage.setItem('darkMode', 'enabled');
             } else {
-                document.documentElement.classList.remove('dark-mode'); // Apply to <html>
+                html.classList.remove('dark-mode');
                 localStorage.setItem('darkMode', 'disabled');
             }
         });
