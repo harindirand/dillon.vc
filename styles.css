@@ -143,3 +143,10 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(14px); /* Move the toggle switch */
 }
+
+@media (max-width: 768px) {
+  .tile {
+    width: 90%; /* Occupy more space on smaller screens */
+    height: 70%; /* Slightly shorter height for smaller devices */
+  }
+}
