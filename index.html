@@ -4,16 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Display</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ensure your CSS file is linked here -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="content">
         <pre id="textDisplay"></pre>
     </div>
+    <!-- Dark mode toggle -->
+    <div class="toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
     <script>
+        // Fetch and display the text content
         fetch('index.txt')
             .then(response => response.text())
             .then(text => document.getElementById('textDisplay').textContent = text);
+
+        // Dark mode toggle functionality
+        const toggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        // Check and apply saved user preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            toggle.checked = true;
+        }
+
+        // Listen for toggle change
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
     </script>
 </body>
 </html>
