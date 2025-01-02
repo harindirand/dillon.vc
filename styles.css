@@ -11,14 +11,14 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-  background-color: #ffffff; /* Light mode background */
-  color: #000000; /* Light mode text color */
+  background-color: #F5F5F5; /* Light mode background */
+  color: #333333; /* Light mode text color */
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark mode */
 }
 
 body.dark-mode {
   background-color: #121212; /* Dark mode background */
-  color: #ffffff; /* Dark mode text color */
+  color: #D3D3D3; /* Dark mode text color */
 }
 
 .content {
