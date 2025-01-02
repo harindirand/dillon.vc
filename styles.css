@@ -16,6 +16,19 @@ body {
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark mode */
 }
 
+/* General tile styling */
+.tile {
+  background-color: #FFFFFF; /* Light mode tile background */
+  color: #333333; /* Light mode tile text */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the tile */
+  max-width: 800px;
+  width: 90%; /* Make it responsive */
+  box-sizing: border-box;
+  text-align: left; /* Ensure text is left-aligned */
+}
+
 body.dark-mode {
   background-color: #121212; /* Dark mode background */
   color: #D3D3D3; /* Dark mode text color */
