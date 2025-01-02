@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dillon Harindiran</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.png" type="image/png"> <!-- Favicon Link -->
@@ -11,7 +12,7 @@
     <div class="content">
         <!-- Tile container for text -->
         <div class="tile">
-            <pre id="textDisplay">Loading...</pre>
+            <pre id="textDisplay"></pre>
         </div>
     </div>
     <!-- Dark mode toggle -->
@@ -21,59 +22,40 @@
             <span class="slider"></span>
         </label>
     </div>
-<script>
-    // Fetch and display the text content
-    fetch('index.txt')
-        .then(response => response.text())
-        .then(text => document.getElementById('textDisplay').textContent = text)
-        .catch(() => document.getElementById('textDisplay').textContent = "Failed to load content.");
+    <script>
+        // Fetch and display the text content
+        fetch('index.txt')
+            .then(response => response.text())
+            .then(text => document.getElementById('textDisplay').textContent = text)
+            .catch(() => document.getElementById('textDisplay').textContent = "Failed to load content.");
 
-    // Dark mode toggle functionality
-    const toggle = document.getElementById('darkModeToggle');
-    const html = document.documentElement;
+        // Dark mode toggle functionality
+        const toggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
 
-    // Check and apply saved user preference or set default to dark mode
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode === 'enabled' || savedMode === null) {
-        html.classList.add('dark-mode');
-        toggle.checked = true;
-        if (savedMode === null) {
-            localStorage.setItem('darkMode', 'enabled'); // Save default as dark mode
-        }
-    } else {
-        html.classList.remove('dark-mode');
-        toggle.checked = false;
-    }
-
-    // Listen for toggle change
-    toggle.addEventListener('change', () => {
-        if (toggle.checked) {
+        // Check and apply saved user preference or set default to dark mode
+        const savedMode = localStorage.getItem('darkMode');
+        if (savedMode === 'enabled' || savedMode === null) {
             html.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
+            toggle.checked = true;
+            if (savedMode === null) {
+                localStorage.setItem('darkMode', 'enabled'); // Save default as dark mode
+            }
         } else {
             html.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
+            toggle.checked = false;
         }
-    });
 
-    // Function to lock or unlock scrolling based on tile size
-    function updateScrollBehavior() {
-        const tile = document.querySelector('.tile');
-        if (!tile) return;
-
-        const { clientHeight, clientWidth } = document.documentElement;
-        const tileRect = tile.getBoundingClientRect();
-
-        if (tileRect.height <= clientHeight && tileRect.width <= clientWidth) {
-            document.documentElement.style.overflow = 'hidden'; // Lock scrolling
-        } else {
-            document.documentElement.style.overflow = 'auto'; // Enable scrolling
-        }
-    }
-
-    // Run on load and resize
-    window.addEventListener('load', updateScrollBehavior);
-    window.addEventListener('resize', updateScrollBehavior);
-</script>
+        // Listen for toggle change
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                html.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                html.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
 </body>
 </html>
