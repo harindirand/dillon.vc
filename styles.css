@@ -46,6 +46,9 @@ body {
   box-sizing: border-box; /* Include padding in width calculations */
   text-align: left; /* Align text to the left */
   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth glow and background transitions */
+  display: flex; /* Ensure centering */
+  justify-content: center;
+  align-items: center;
 }
 
 /* Content container */
@@ -55,8 +58,7 @@ body {
   align-items: center;
   width: 100%;
   max-width: 800px;
-  padding: 20px;
-  box-sizing: border-box;
+  margin: 0; /* Remove margin */
 }
 
 /* Styling for <pre> to prevent scrolling and wrap text */
