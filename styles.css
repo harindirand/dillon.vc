@@ -30,7 +30,7 @@ body {
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   margin: 0;
-  padding: 20px 0; /* Add vertical padding for better visibility */
+  padding: 0; /* Default padding */
   background-color: transparent; /* Let html handle background color */
   box-sizing: border-box; /* Include padding in calculations */
 }
@@ -81,14 +81,15 @@ pre {
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   body {
-    padding: 30px 10px; /* Add more padding on smaller screens */
+    padding: 20px 0; /* Add vertical padding to ensure spacing on mobile */
   }
 
   .tile {
-    width: 90%; /* Occupy 90% of the screen width */
-    height: auto; /* Let the height adjust naturally */
+    width: 90%; /* Occupy more space on smaller screens */
+    height: auto; /* Let height expand naturally */
     max-height: none; /* Remove height restrictions */
-    padding: 20px; /* Adjust padding for smaller screens */
+    padding: 20px; /* Adjust internal padding for smaller screens */
+    margin: 20px 0; /* Add spacing above and below the tile */
   }
 
   pre {
@@ -97,15 +98,12 @@ pre {
 }
 
 @media (max-height: 600px) {
-  html, body {
-    overflow: auto; /* Allow scrolling on shorter screens */
-  }
-
   body {
-    padding: 20px; /* Ensure consistent padding on short screens */
+    padding: 20px; /* Add consistent padding for short screens */
   }
 
   .tile {
+    margin: 20px 0; /* Add vertical margin for short screens */
     height: auto; /* Let height expand naturally */
     max-height: none; /* Remove height restrictions */
   }
