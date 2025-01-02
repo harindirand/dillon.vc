@@ -4,16 +4,20 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevent scrolling */
+  display: flex; /* Flexbox ensures alignment */
+  justify-content: center; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; /* Flexbox ensures alignment */
+  justify-content: center; /* Horizontal alignment */
+  align-items: center; /* Vertical alignment */
   font-family: Arial, sans-serif;
   background-color: #F5F5F5; /* Light mode background */
   color: #333333; /* Light mode text color */
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark mode */
+  overflow: hidden; /* Prevent scrolling */
 }
 
 /* General tile styling */
