@@ -9,7 +9,7 @@
 /* Dark mode variables */
 html.dark-mode {
   --bg-color: #030614; /* Dark mode background */
-  --text-color: ##FFF; /* Dark mode text */
+  --text-color: #FFF; /* Dark mode text */
   --tile-bg-color: #0B0923; /* Dark mode tile background */
   --tile-glow-color: #D2C5FA; /* Dark mode glow (soft orange) */
 }
