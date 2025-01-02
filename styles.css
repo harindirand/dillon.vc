@@ -1,164 +1,179 @@
 /* Light mode variables */
 :root {
-  --bg-color: #F8F8F8; /* Light mode background */
-  --text-color: #333333; /* Light mode text */
-  --tile-bg-color: #FFFFFF; /* Light mode tile background */
-  --tile-glow-color: #ede9e8; /* Light mode glow */
+    --bg-color: #F8F8F8;
+    --text-color: #333333;
+    --tile-bg-color: #FFFFFF;
+    --tile-glow-color: #ede9e8;
 }
 
 /* Dark mode variables */
 html.dark-mode {
-  --bg-color: #030614; /* Dark mode background */
-  --text-color: #FFF; /* Dark mode text */
-  --tile-bg-color: #0B0923; /* Dark mode tile background */
-  --tile-glow-color: #D2C5FA; /* Dark mode glow (soft orange) */
+    --bg-color: #030614;
+    --text-color: #FFF;
+    --tile-bg-color: #0B0923;
+    --tile-glow-color: #D2C5FA;
 }
 
 /* General styles */
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-color); /* Background for light/dark mode */
-  color: var(--text-color); /* Text color for light/dark mode */
-  font-family: Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    overflow-x: hidden;
 }
 
 body {
-  display: flex; /* Flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  margin: 0;
-  padding: 20px 0; /* Add vertical padding for better visibility */
-  background-color: transparent; /* Let html handle background color */
-  box-sizing: border-box; /* Include padding in calculations */
-}
-
-/* Tile styling with glow effect */
-.tile {
-  background-color: var(--tile-bg-color); /* Tile background */
-  color: var(--text-color); /* Tile text color */
-  padding: 40px;
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  width: 80vw; /* Occupy 80% of the viewport width */
-  height: 80vh; /* Occupy 80% of the viewport height */
-  max-width: 800px; /* Maximum width */
-  max-height: 600px; /* Maximum height */
-  box-sizing: border-box; /* Include padding in width/height calculations */
-  text-align: left; /* Align text to the left */
-  display: flex; /* Center content */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  overflow: auto; /* Allow scrolling inside the tile if needed */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Content container */
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto; /* Center content horizontally */
-  padding: 0 10px; /* Add horizontal padding for smaller screens */
-  box-sizing: border-box; /* Include padding in calculations */
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-/* Styling for <pre> to prevent scrolling and wrap text */
+/* Tile styling */
+.tile {
+    background-color: var(--tile-bg-color);
+    color: var(--text-color);
+    width: 100%;
+    min-height: 200px;
+    max-height: 80vh;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 5px var(--tile-glow-color);
+    box-sizing: border-box;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Pre element styling */
 pre {
-  white-space: pre-wrap; /* Wrap text */
-  word-wrap: break-word; /* Break long words */
-  overflow-wrap: break-word;
-  margin: 0; /* Remove default margins */
-  text-align: left; /* Align text to the left */
-  max-width: 100%; /* Ensure no horizontal overflow */
-  max-height: 100%; /* Ensure no vertical overflow */
-  overflow: hidden; /* Prevent scrollbars */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0;
+    text-align: left;
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 768px) {
-  body {
-    padding: 30px 10px; /* Add more padding on smaller screens */
-  }
-
-  .tile {
-    width: 90%; /* Occupy 90% of the screen width */
-    height: auto; /* Let the height adjust naturally */
-    max-height: none; /* Remove height restrictions */
-    padding: 20px; /* Adjust padding for smaller screens */
-  }
-
-  pre {
-    font-size: 0.85rem; /* Slightly smaller text */
-  }
-}
-
-@media (max-height: 600px) {
-  html, body {
-    overflow: auto; /* Allow scrolling on shorter screens */
-  }
-
-  body {
-    padding: 20px; /* Ensure consistent padding on short screens */
-  }
-
-  .tile {
-    height: auto; /* Let height expand naturally */
-    max-height: none; /* Remove height restrictions */
-  }
-}
-
-/* Dark mode toggle switch styling */
+/* Dark mode toggle styling */
 .toggle-container {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
 }
 
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 34px;
-  height: 20px;
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 10px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 10px;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #EC545F; /* Coral red toggle for "ON" state */
+    background-color: #EC545F;
 }
 
 input:checked + .slider:before {
-  transform: translateX(14px); /* Move the toggle switch */
+    transform: translateX(14px);
+}
+
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .tile {
+        width: 95%;
+        margin: 5px;
+        padding: 20px;
+        height: auto;
+        min-height: 60vh;
+        max-height: 80vh;
+    }
+
+    pre {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .tile {
+        margin: 0;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .toggle-container {
+        top: 5px;
+        right: 5px;
+    }
+}
+
+/* Height-based responsive styles */
+@media (max-height: 600px) {
+    .tile {
+        min-height: auto;
+        max-height: 85vh;
+    }
 }
