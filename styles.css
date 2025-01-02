@@ -29,7 +29,7 @@ html, body {
 body {
   display: flex; /* Flexbox for centering */
   justify-content: center; /* Center horizontally */
-  align-items: center; /* Center tile vertically by default */
+  align-items: flex-start; /* Align tile at the top */
   margin: 0;
   padding: 20px; /* Ensure consistent padding for all devices */
   background-color: transparent; /* Let html handle background color */
@@ -37,34 +37,25 @@ body {
   overflow-y: auto; /* Allow vertical scrolling if necessary */
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 768px) {
-  body {
-    padding: 20px 10px; /* Add more padding on smaller devices */
-    align-items: flex-start; /* Ensure tile aligns from the top */
-  }
-
-  .tile {
-    width: 90%; /* Make the tile occupy more space */
-    max-height: calc(100vh - 40px); /* Ensure tile fits within the viewport */
-    padding: 20px; /* Reduce internal padding */
-    margin-top: 10px; /* Add spacing from the top */
-    margin-bottom: 10px; /* Prevent bottom clipping */
-  }
-}
-
-/* Extra handling for shorter screens */
-@media (max-height: 600px) {
-  body {
-    padding: 10px; /* Reduce padding for short screens */
-    align-items: flex-start; /* Ensure tile aligns from the top */
-  }
-
-  .tile {
-    max-height: calc(100vh - 20px); /* Ensure tile fits even on short screens */
-    padding: 15px; /* Adjust padding */
-    margin-top: 10px; /* Add spacing from the top */
-  }
+/* Tile styling */
+.tile {
+  background-color: var(--tile-bg-color); /* Tile background */
+  color: var(--text-color); /* Tile text color */
+  padding: 40px; /* Internal padding */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
+  width: 80%; /* Default width as a percentage of the viewport */
+  height: auto; /* Allow natural height */
+  max-width: 800px; /* Limit width */
+  max-height: calc(100vh - 40px); /* Prevent overflow on small screens */
+  margin-top: 20px; /* Add spacing from the top of the viewport */
+  box-sizing: border-box; /* Include padding in width/height calculations */
+  overflow: auto; /* Allow scrolling inside the tile for overflowing content */
+  text-align: left; /* Align text to the left */
+  display: flex; /* Flex container */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
 }
 
 /* Content container */
