@@ -10,14 +10,10 @@ html, body {
 }
 
 body {
-  display: flex; /* Flexbox ensures alignment */
-  justify-content: center; /* Horizontal alignment */
-  align-items: center; /* Vertical alignment */
   font-family: Arial, sans-serif;
   background-color: #F5F5F5; /* Light mode background */
   color: #333333; /* Light mode text color */
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark mode */
-  overflow: hidden; /* Prevent scrolling */
 }
 
 /* Tile styling with glow effect */
@@ -39,16 +35,15 @@ body.dark-mode {
 }
 
 .content {
-  width: 100%; /* Take up full screen width */
-  max-width: 800px; /* Limit the content width for readability */
-  height: 100%; /* Take up full screen height */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%; /* Full width */
+  max-width: 800px; /* Limit the content width */
   padding: 20px;
   box-sizing: border-box;
-  overflow: hidden; /* Prevent internal scrolling */
-  text-align: left; /* Ensure all text is left-aligned */
+  text-align: left; /* Left-align text */
+}
+
+.content > .tile {
+  margin: 0 auto; /* Center the tile horizontally inside the content */
 }
 
 /* Styling for <pre> to prevent scrolling and wrap text */
