@@ -41,15 +41,18 @@ body {
   padding: 40px;
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  max-width: 80%;
-  width: 90%;
-  box-sizing: border-box; /* Include padding in width calculations */
+  width: 80%; /* Occupy 80% of the page width */
+  height: 80%; /* Occupy 80% of the page height */
+  max-width: 80%; /* Ensure it doesn't exceed 80% width */
+  max-height: 80%; /* Ensure it doesn't exceed 80% height */
+  box-sizing: border-box; /* Include padding in width/height calculations */
   text-align: left; /* Align text to the left */
   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth glow and background transitions */
   display: flex; /* Ensure centering */
   justify-content: center;
   align-items: center;
 }
+
 
 /* Content container */
 .content {
