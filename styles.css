@@ -23,6 +23,7 @@ html, body {
   color: var(--text-color); /* Text color for light/dark mode */
   font-family: Arial, sans-serif;
   transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 body {
@@ -30,40 +31,40 @@ body {
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   margin: 0;
-  padding: 0; /* Default padding */
+  padding: 20px; /* Ensure consistent padding for all devices */
   background-color: transparent; /* Let html handle background color */
   box-sizing: border-box; /* Include padding in calculations */
 }
 
-/* Tile styling with glow effect */
+/* Tile styling */
 .tile {
   background-color: var(--tile-bg-color); /* Tile background */
   color: var(--text-color); /* Tile text color */
-  padding: 40px;
-  border-radius: 5px; /* Rounded corners */
+  padding: 40px; /* Internal padding */
+  border-radius: 8px; /* Rounded corners */
   box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  width: 80vw; /* Occupy 80% of the viewport width */
-  height: 80vh; /* Occupy 80% of the viewport height */
-  max-width: 800px; /* Maximum width */
-  max-height: 600px; /* Maximum height */
+  width: 80%; /* Default width as a percentage of the viewport */
+  height: auto; /* Allow natural height */
+  max-width: 800px; /* Limit width */
+  max-height: calc(100vh - 40px); /* Prevent overflow on small screens */
   box-sizing: border-box; /* Include padding in width/height calculations */
+  overflow: auto; /* Allow scrolling inside the tile for overflowing content */
   text-align: left; /* Align text to the left */
-  display: flex; /* Center content */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  overflow: auto; /* Allow scrolling inside the tile if needed */
+  display: flex; /* Flex container */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
 }
 
 /* Content container */
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto; /* Center content horizontally */
-  padding: 0 10px; /* Add horizontal padding for smaller screens */
-  box-sizing: border-box; /* Include padding in calculations */
+  width: 100%; /* Full width */
+  max-width: 800px; /* Limit width */
+  padding: 0 10px; /* Add horizontal padding */
+  box-sizing: border-box; /* Include padding in width calculations */
+  display: flex; /* Center content */
+  justify-content: center; /* Align content horizontally */
+  align-items: center; /* Align content vertically */
 }
 
 /* Styling for <pre> to prevent scrolling and wrap text */
@@ -74,38 +75,36 @@ pre {
   margin: 0; /* Remove default margins */
   text-align: left; /* Align text to the left */
   max-width: 100%; /* Ensure no horizontal overflow */
-  max-height: 100%; /* Ensure no vertical overflow */
-  overflow: hidden; /* Prevent scrollbars */
+  overflow: auto; /* Allow vertical scrolling if needed */
 }
 
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   body {
-    padding: 20px 0; /* Add vertical padding to ensure spacing on mobile */
+    padding: 20px 10px; /* Add more padding on smaller devices */
   }
 
   .tile {
-    width: 90%; /* Occupy more space on smaller screens */
-    height: auto; /* Let height expand naturally */
-    max-height: none; /* Remove height restrictions */
-    padding: 20px; /* Adjust internal padding for smaller screens */
-    margin: 20px 0; /* Add spacing above and below the tile */
+    width: 90%; /* Make the tile occupy more space */
+    max-height: calc(100vh - 20px); /* Ensure tile fits within the viewport */
+    padding: 20px; /* Reduce internal padding */
+    margin: 10px 0; /* Add vertical margin to prevent clipping */
   }
 
   pre {
-    font-size: 0.85rem; /* Slightly smaller text */
+    font-size: 0.9rem; /* Slightly smaller text for mobile */
   }
 }
 
+/* Extra handling for shorter screens */
 @media (max-height: 600px) {
   body {
-    padding: 20px; /* Add consistent padding for short screens */
+    padding: 10px; /* Reduce padding for short screens */
   }
 
   .tile {
-    margin: 20px 0; /* Add vertical margin for short screens */
-    height: auto; /* Let height expand naturally */
-    max-height: none; /* Remove height restrictions */
+    max-height: calc(100vh - 10px); /* Ensure tile fits even on short screens */
+    padding: 15px; /* Adjust padding */
   }
 }
 
