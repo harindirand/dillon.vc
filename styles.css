@@ -41,7 +41,7 @@ body {
   padding: 40px;
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  max-width: 800px;
+  max-width: 80%;
   width: 90%;
   box-sizing: border-box; /* Include padding in width calculations */
   text-align: left; /* Align text to the left */
