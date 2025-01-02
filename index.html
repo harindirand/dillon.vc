@@ -2,19 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dillon Harindiran</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.png" type="image/png"> <!-- Favicon Link -->
+    <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
     <div class="content">
-        <!-- Tile container for text -->
         <div class="tile">
             <pre id="textDisplay">Loading...</pre>
         </div>
     </div>
-    <!-- Dark mode toggle -->
     <div class="toggle-container">
         <label class="switch">
             <input type="checkbox" id="darkModeToggle">
@@ -38,7 +36,7 @@
         html.classList.add('dark-mode');
         toggle.checked = true;
         if (savedMode === null) {
-            localStorage.setItem('darkMode', 'enabled'); // Save default as dark mode
+            localStorage.setItem('darkMode', 'enabled');
         }
     } else {
         html.classList.remove('dark-mode');
@@ -56,18 +54,22 @@
         }
     });
 
-    // Function to lock or unlock scrolling based on tile size
+    // Function to handle scroll behavior
     function updateScrollBehavior() {
         const tile = document.querySelector('.tile');
         if (!tile) return;
 
-        const { clientHeight, clientWidth } = document.documentElement;
-        const tileRect = tile.getBoundingClientRect();
-
-        if (tileRect.height <= clientHeight && tileRect.width <= clientWidth) {
-            document.documentElement.style.overflow = 'hidden'; // Lock scrolling
+        if (window.innerWidth <= 768) {
+            document.documentElement.style.overflow = 'auto';
         } else {
-            document.documentElement.style.overflow = 'auto'; // Enable scrolling
+            const { clientHeight } = document.documentElement;
+            const tileRect = tile.getBoundingClientRect();
+            
+            if (tileRect.height <= clientHeight) {
+                document.documentElement.style.overflow = 'hidden';
+            } else {
+                document.documentElement.style.overflow = 'auto';
+            }
         }
     }
 
