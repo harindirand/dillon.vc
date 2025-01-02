@@ -164,3 +164,18 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(14px); /* Move the toggle switch */
 }
+
+/* Desktop overrides */
+@media (min-width: 1024px) {
+  /* Let the body fill the screen so we can center the tile vertically */
+  body {
+    height: 100vh;           /* Required for true vertical centering */
+    align-items: center;     /* Centers tile vertically in Flexbox */
+  }
+
+  /* Make the tile 50% wide and remove top margin if you want perfect centering */
+  .tile {
+    width: 50%;
+    margin-top: 0;
+  }
+}
