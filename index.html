@@ -33,17 +33,17 @@
 
         // Check and apply saved user preference
         if (localStorage.getItem('darkMode') === 'enabled') {
-            body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode'); // Apply to <html>
             toggle.checked = true;
         }
 
         // Listen for toggle change
         toggle.addEventListener('change', () => {
             if (toggle.checked) {
-                body.classList.add('dark-mode');
+                document.documentElement.classList.add('dark-mode'); // Apply to <html>
                 localStorage.setItem('darkMode', 'enabled');
             } else {
-                body.classList.remove('dark-mode');
+                document.documentElement.classList.remove('dark-mode'); // Apply to <html>
                 localStorage.setItem('darkMode', 'disabled');
             }
         });
