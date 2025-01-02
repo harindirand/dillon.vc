@@ -8,10 +8,10 @@
 
 /* Dark mode variables */
 html.dark-mode {
-  --bg-color: #2B2B2B; /* Dark mode background */
-  --text-color: #E0E0E0; /* Dark mode text */
-  --tile-bg-color: #1E1E1E; /* Dark mode tile background */
-  --tile-glow-color: rgba(255, 165, 0, 0.5); /* Dark mode glow (soft orange) */
+  --bg-color: #030614; /* Dark mode background */
+  --text-color: ##FFF; /* Dark mode text */
+  --tile-bg-color: #0B0923; /* Dark mode tile background */
+  --tile-glow-color: #D2C5FA; /* Dark mode glow (soft orange) */
 }
 
 /* General styles */
