@@ -20,13 +20,13 @@ body {
   overflow: hidden; /* Prevent scrolling */
 }
 
-/* General tile styling */
+/* Tile styling with glow effect */
 .tile {
   background-color: #FFFFFF; /* Light mode tile background */
   color: #333333; /* Light mode tile text */
   padding: 20px;
   border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the tile */
+  box-shadow: 0 0 20px 5px rgba(0, 123, 255, 0.5); /* Blue glow */
   max-width: 800px;
   width: 90%; /* Make it responsive */
   box-sizing: border-box;
