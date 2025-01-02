@@ -144,9 +144,15 @@ input:checked + .slider:before {
   transform: translateX(14px); /* Move the toggle switch */
 }
 
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .tile {
     width: 90%; /* Occupy more space on smaller screens */
     height: 70%; /* Slightly shorter height for smaller devices */
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
+
+  pre {
+    font-size: 0.85rem; /* Slightly smaller text */
   }
 }
