@@ -19,7 +19,6 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevent scrolling */
   background-color: var(--bg-color); /* Background for light/dark mode */
   color: var(--text-color); /* Text color for light/dark mode */
   font-family: Arial, sans-serif;
@@ -34,24 +33,17 @@ body {
   background-color: transparent; /* Let html handle background color */
 }
 
-.tile {
-  background-color: var(--tile-bg-color); /* Tile background */
-  color: var(--text-color); /* Tile text color */
-  padding: 40px;
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  width: 80vw; /* 80% of the viewport width */
-  height: 80vh; /* 80% of the viewport height */
-  max-width: 800px; /* Maximum width */
-  max-height: 600px; /* Maximum height */
-  box-sizing: border-box; /* Include padding in width/height calculations */
-  text-align: left; /* Align text to the left */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth glow and background transitions */
-  display: flex; /* Ensure centering */
-  justify-content: center;
-  align-items: center;
-  overflow: auto; /* Allow scrolling within the tile on smaller devices */
+@media (max-height: 600px), (max-width: 768px) {
+  html, body {
+    overflow: auto; /* Allow scrolling on smaller devices */
+  }
+
+  .tile {
+    height: auto; /* Allow the tile to expand naturally */
+    max-height: none; /* Remove the height limit */
+  }
 }
+
 
 
 
