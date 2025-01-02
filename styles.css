@@ -79,7 +79,7 @@ body {
   border-radius: 8px;                     /* Rounded corners */
 
   /* Pulsating glow animation */
-  animation: pulsate-glow 10s ease-in-out infinite;
+  animation: pulsate-glow 25s ease-in-out infinite;
 
   width: 80%;                  /* Default width as a percentage of the viewport */
   height: auto;                /* Allow natural height */
