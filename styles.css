@@ -35,10 +35,12 @@ html.dark-mode {
 /* ------------------------------------------------------ */
 @keyframes pulsate-glow {
   0%, 100% {
-    box-shadow: 0 0 20px 5px rgba(var(--tile-glow-rgb), var(--glow-alpha-min));
+    /* Slightly larger than the minimum, e.g. 25px radius, 7px spread */
+    box-shadow: 0 0 25px 7px rgba(var(--tile-glow-rgb), var(--glow-alpha-min));
   }
   50% {
-    box-shadow: 0 0 30px 10px rgba(var(--tile-glow-rgb), var(--glow-alpha-max));
+    /* Just a bit bigger, e.g. 28px radius, 9px spread */
+    box-shadow: 0 0 28px 9px rgba(var(--tile-glow-rgb), var(--glow-alpha-max));
   }
 }
 
