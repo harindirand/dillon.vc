@@ -1,17 +1,17 @@
 /* Light mode variables */
 :root {
-  --bg-color: #F5F5F5;
-  --text-color: #333333;
-  --tile-bg-color: #FFFFFF;
-  --tile-glow-color: rgba(0, 123, 255, 0.5);
+  --bg-color: #F8F8F8; /* Light mode background */
+  --text-color: #333333; /* Light mode text */
+  --tile-bg-color: #FFFFFF; /* Light mode tile background */
+  --tile-glow-color: rgba(255, 165, 0, 0.5); /* Light mode glow (soft orange) */
 }
 
 /* Dark mode variables */
 body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #D3D3D3;
-  --tile-bg-color: #1E1E1E;
-  --tile-glow-color: rgba(0, 255, 123, 0.5);
+  --bg-color: #1E1E1E; /* Dark mode background */
+  --text-color: #E0E0E0; /* Dark mode text */
+  --tile-bg-color: #2B2B2B; /* Dark mode tile background */
+  --tile-glow-color: rgba(255, 165, 0, 0.5); /* Dark mode glow (soft orange) */
 }
 
 /* General styles */
@@ -124,7 +124,7 @@ pre {
 }
 
 input:checked + .slider {
-  background-color: #EC545F;
+  background-color: #EC545F; /* Coral red toggle for "ON" state */
 }
 
 input:checked + .slider:before {
