@@ -11,7 +11,7 @@
     <div class="content">
         <!-- Tile container for text -->
         <div class="tile">
-            <pre id="textDisplay"></pre>
+            <pre id="textDisplay">Loading...</pre>
         </div>
     </div>
     <!-- Dark mode toggle -->
@@ -21,48 +21,52 @@
             <span class="slider"></span>
         </label>
     </div>
-   <script>
-    // Fetch and display the text content
-    fetch('index.txt')
-        .then(response => response.text())
-        .then(text => document.getElementById('textDisplay').textContent = text);
+    <script>
+        // Fetch and display the text content
+        fetch('index.txt')
+            .then(response => response.text())
+            .then(text => document.getElementById('textDisplay').textContent = text)
+            .catch(() => document.getElementById('textDisplay').textContent = "Failed to load content.");
 
-    // Dark mode toggle functionality
-    const toggle = document.getElementById('darkModeToggle');
-    const html = document.documentElement;
+        // Dark mode toggle functionality
+        const toggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
 
-    // Check and apply saved user preference
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        html.classList.add('dark-mode');
-        toggle.checked = true;
-    }
-
-    // Listen for toggle change
-    toggle.addEventListener('change', () => {
-        if (toggle.checked) {
+        // Check and apply saved user preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
             html.classList.add('dark-mode');
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            html.classList.remove('dark-mode');
-            localStorage.setItem('darkMode', 'disabled');
+            toggle.checked = true;
         }
-    });
 
-    // Function to lock or unlock scrolling based on tile size
-    function updateScrollBehavior() {
-        const tile = document.querySelector('.tile');
-        const { clientHeight, clientWidth } = document.documentElement;
+        // Listen for toggle change
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                html.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                html.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
 
-        if (tile.offsetHeight <= clientHeight && tile.offsetWidth <= clientWidth) {
-            document.documentElement.style.overflow = 'hidden'; // Lock scrolling
-        } else {
-            document.documentElement.style.overflow = 'auto'; // Enable scrolling
+        // Function to lock or unlock scrolling based on tile size
+        function updateScrollBehavior() {
+            const tile = document.querySelector('.tile');
+            if (!tile) return;
+
+            const { clientHeight, clientWidth } = document.documentElement;
+            const tileRect = tile.getBoundingClientRect();
+
+            if (tileRect.height <= clientHeight && tileRect.width <= clientWidth) {
+                document.documentElement.style.overflow = 'hidden'; // Lock scrolling
+            } else {
+                document.documentElement.style.overflow = 'auto'; // Enable scrolling
+            }
         }
-    }
 
-    // Run on load and resize
-    window.addEventListener('load', updateScrollBehavior);
-    window.addEventListener('resize', updateScrollBehavior);
-</script>
+        // Run on load and resize
+        window.addEventListener('load', updateScrollBehavior);
+        window.addEventListener('resize', updateScrollBehavior);
+    </script>
 </body>
 </html>
