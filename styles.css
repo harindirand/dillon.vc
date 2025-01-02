@@ -30,7 +30,9 @@ body {
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   margin: 0;
+  padding: 20px 0; /* Add vertical padding for better visibility */
   background-color: transparent; /* Let html handle background color */
+  box-sizing: border-box; /* Include padding in calculations */
 }
 
 /* Tile styling with glow effect */
@@ -40,8 +42,8 @@ body {
   padding: 40px;
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  width: 80vw; /* 80% of the viewport width */
-  height: 80vh; /* 80% of the viewport height */
+  width: 80vw; /* Occupy 80% of the viewport width */
+  height: 80vh; /* Occupy 80% of the viewport height */
   max-width: 800px; /* Maximum width */
   max-height: 600px; /* Maximum height */
   box-sizing: border-box; /* Include padding in width/height calculations */
@@ -54,12 +56,14 @@ body {
 
 /* Content container */
 .content {
-  display: flex; /* Center content */
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 800px;
-  margin: 0; /* Remove margin */
+  margin: 0 auto; /* Center content horizontally */
+  padding: 0 10px; /* Add horizontal padding for smaller screens */
+  box-sizing: border-box; /* Include padding in calculations */
 }
 
 /* Styling for <pre> to prevent scrolling and wrap text */
@@ -76,9 +80,13 @@ pre {
 
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
+  body {
+    padding: 30px 10px; /* Add more padding on smaller screens */
+  }
+
   .tile {
-    width: 90%; /* Occupy more space on smaller screens */
-    height: auto; /* Let height expand naturally */
+    width: 90%; /* Occupy 90% of the screen width */
+    height: auto; /* Let the height adjust naturally */
     max-height: none; /* Remove height restrictions */
     padding: 20px; /* Adjust padding for smaller screens */
   }
@@ -91,6 +99,10 @@ pre {
 @media (max-height: 600px) {
   html, body {
     overflow: auto; /* Allow scrolling on shorter screens */
+  }
+
+  body {
+    padding: 20px; /* Ensure consistent padding on short screens */
   }
 
   .tile {
