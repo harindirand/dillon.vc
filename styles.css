@@ -34,24 +34,25 @@ body {
   background-color: transparent; /* Let html handle background color */
 }
 
-/* Tile styling with glow effect */
 .tile {
   background-color: var(--tile-bg-color); /* Tile background */
   color: var(--text-color); /* Tile text color */
   padding: 40px;
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  width: 80%; /* Occupy 80% of the page width */
-  height: 80%; /* Occupy 80% of the page height */
-  max-width: 80%; /* Ensure it doesn't exceed 80% width */
-  max-height: 80%; /* Ensure it doesn't exceed 80% height */
+  width: 80vw; /* 80% of the viewport width */
+  height: 80vh; /* 80% of the viewport height */
+  max-width: 800px; /* Maximum width */
+  max-height: 600px; /* Maximum height */
   box-sizing: border-box; /* Include padding in width/height calculations */
   text-align: left; /* Align text to the left */
   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth glow and background transitions */
   display: flex; /* Ensure centering */
   justify-content: center;
   align-items: center;
+  overflow: auto; /* Allow scrolling within the tile on smaller devices */
 }
+
 
 
 /* Content container */
