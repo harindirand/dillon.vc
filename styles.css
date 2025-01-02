@@ -3,7 +3,7 @@
   --bg-color: #F8F8F8; /* Light mode background */
   --text-color: #333333; /* Light mode text */
   --tile-bg-color: #FFFFFF; /* Light mode tile background */
-  --tile-glow-color: rgba(255, 165, 0, 0.5); /* Light mode glow (soft orange) */
+  --tile-glow-color: #2E2E2E; /* Light mode glow (soft orange) */
 }
 
 /* Dark mode variables */
