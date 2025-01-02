@@ -7,7 +7,7 @@
 }
 
 /* Dark mode variables */
-body.dark-mode {
+html.dark-mode {
   --bg-color: #1E1E1E; /* Dark mode background */
   --text-color: #E0E0E0; /* Dark mode text */
   --tile-bg-color: #2B2B2B; /* Dark mode tile background */
@@ -20,62 +20,70 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevent scrolling */
-  display: flex; /* Flexbox ensures alignment */
-  justify-content: center; /* Horizontal alignment */
-  align-items: center; /* Vertical alignment */
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--bg-color); /* Background for light/dark mode */
+  color: var(--text-color); /* Text color for light/dark mode */
   font-family: Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+body {
+  display: flex; /* Flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: 0;
+  background-color: transparent; /* Let html handle background color */
 }
 
 /* Tile styling with glow effect */
 .tile {
-  background-color: var(--tile-bg-color);
-  color: var(--text-color);
+  background-color: var(--tile-bg-color); /* Tile background */
+  color: var(--text-color); /* Tile text color */
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px 5px var(--tile-glow-color);
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
   max-width: 800px;
   width: 90%;
-  box-sizing: border-box;
-  text-align: left;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* Include padding in width calculations */
+  text-align: left; /* Align text to the left */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth glow and background transitions */
 }
 
+/* Content container */
 .content {
+  display: flex; /* Center content */
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 800px;
   padding: 20px;
   box-sizing: border-box;
-  text-align: left;
 }
 
 /* Styling for <pre> to prevent scrolling and wrap text */
 pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  white-space: pre-wrap; /* Wrap text */
+  word-wrap: break-word; /* Break long words */
   overflow-wrap: break-word;
-  margin: 0;
-  text-align: left;
-  max-width: 100%;
-  max-height: 100%;
-  overflow: hidden;
+  margin: 0; /* Remove default margins */
+  text-align: left; /* Align text to the left */
+  max-width: 100%; /* Ensure no horizontal overflow */
+  max-height: 100%; /* Ensure no vertical overflow */
+  overflow: hidden; /* Prevent scrollbars */
 }
 
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .content {
-    max-width: 90%;
-    padding: 10px;
+    max-width: 90%; /* Adjust width for smaller devices */
+    padding: 10px; /* Reduce padding */
   }
 
   .tile {
-    padding: 15px;
+    padding: 15px; /* Reduce padding for tiles */
   }
 
   pre {
-    font-size: 0.85rem;
+    font-size: 0.85rem; /* Slightly smaller text */
   }
 }
 
@@ -128,5 +136,5 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  transform: translateX(14px);
+  transform: translateX(14px); /* Move the toggle switch */
 }
