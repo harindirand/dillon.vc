@@ -158,7 +158,7 @@ pre {
 }
 
 input:checked + .slider {
-  background-color: #EC545F; /* Coral red toggle for "ON" state */
+  background-color: #0B0923; /* Colour toggle for "ON" state */
 }
 
 input:checked + .slider:before {
