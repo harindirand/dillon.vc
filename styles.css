@@ -10,8 +10,8 @@
   --tile-glow-rgb: 237, 233, 232; /* Light mode glow (RGB) */
 
   /* Pulsating glow brightness range (alpha) */
-  --glow-alpha-min: 0.2;          /* Lower brightness bound */
-  --glow-alpha-max: 0.6;          /* Higher brightness bound */
+  --glow-alpha-min: 0.3;          /* Lower brightness bound */
+  --glow-alpha-max: 0.7;          /* Higher brightness bound */
 }
 
 /* ------------------------------------------------------ */
@@ -26,8 +26,8 @@ html.dark-mode {
   --tile-glow-rgb: 210, 197, 250; /* Soft purple example */
 
   /* Adjust brightness range for dark mode if desired */
-  --glow-alpha-min: 0.3;
-  --glow-alpha-max: 0.7;
+  --glow-alpha-min: 0.1;
+  --glow-alpha-max: 0.5;
 }
 
 /* ------------------------------------------------------ */
@@ -77,7 +77,7 @@ body {
   border-radius: 8px;                     /* Rounded corners */
 
   /* Pulsating glow animation */
-  animation: pulsate-glow 2.5s ease-in-out infinite;
+  animation: pulsate-glow 4s ease-in-out infinite;
 
   width: 80%;                  /* Default width as a percentage of the viewport */
   height: auto;                /* Allow natural height */
