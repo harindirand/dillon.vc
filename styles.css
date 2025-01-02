@@ -1,98 +1,139 @@
-/* Light mode variables */
+/* ------------------------------------------------------ */
+/*                 1. Light mode variables                */
+/* ------------------------------------------------------ */
 :root {
-  --bg-color: #F8F8F8; /* Light mode background */
-  --text-color: #333333; /* Light mode text */
-  --tile-bg-color: #FFFFFF; /* Light mode tile background */
-  --tile-glow-color: #ede9e8; /* Light mode glow */
+  --bg-color: #F8F8F8;       /* Light mode background */
+  --text-color: #333333;     /* Light mode text */
+  --tile-bg-color: #FFFFFF;  /* Light mode tile background */
+
+  /* Instead of a single glow hex, we split it into RGB */
+  --tile-glow-rgb: 237, 233, 232; /* Light mode glow (RGB) */
+
+  /* Pulsating glow brightness range (alpha) */
+  --glow-alpha-min: 0.2;          /* Lower brightness bound */
+  --glow-alpha-max: 0.6;          /* Higher brightness bound */
 }
 
-/* Dark mode variables */
+/* ------------------------------------------------------ */
+/*                 2. Dark mode variables                 */
+/* ------------------------------------------------------ */
 html.dark-mode {
-  --bg-color: #030614; /* Dark mode background */
-  --text-color: #FFF; /* Dark mode text */
-  --tile-bg-color: #0B0923; /* Dark mode tile background */
-  --tile-glow-color: #D2C5FA; /* Dark mode glow (soft orange) */
+  --bg-color: #030614;          /* Dark mode background */
+  --text-color: #FFF;           /* Dark mode text */
+  --tile-bg-color: #0B0923;     /* Dark mode tile background */
+
+  /* Dark mode glow (RGB) */
+  --tile-glow-rgb: 210, 197, 250; /* Soft purple example */
+
+  /* Adjust brightness range for dark mode if desired */
+  --glow-alpha-min: 0.3;
+  --glow-alpha-max: 0.7;
 }
 
-/* General styles */
+/* ------------------------------------------------------ */
+/*            3. Keyframes for pulsating glow             */
+/* ------------------------------------------------------ */
+@keyframes pulsate-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px 5px rgba(var(--tile-glow-rgb), var(--glow-alpha-min));
+  }
+  50% {
+    box-shadow: 0 0 30px 10px rgba(var(--tile-glow-rgb), var(--glow-alpha-max));
+  }
+}
+
+/* ------------------------------------------------------ */
+/*                     4. General styles                  */
+/* ------------------------------------------------------ */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: var(--bg-color); /* Background for light/dark mode */
-  color: var(--text-color); /* Text color for light/dark mode */
+  color: var(--text-color);         /* Text color for light/dark mode */
   font-family: Arial, sans-serif;
   transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 body {
-  display: flex; /* Flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: flex-start; /* Align tile at the top */
+  display: flex;              /* Flexbox for centering */
+  justify-content: center;    /* Center horizontally */
+  align-items: flex-start;    /* Align tile at the top */
   margin: 0;
-  padding: 20px; /* Ensure consistent padding for all devices */
+  padding: 20px;              /* Ensure consistent padding for all devices */
   background-color: transparent; /* Let html handle background color */
-  box-sizing: border-box; /* Include padding in calculations */
-  overflow-y: auto; /* Allow vertical scrolling if necessary */
+  box-sizing: border-box;     /* Include padding in calculations */
+  overflow-y: auto;           /* Allow vertical scrolling if necessary */
 }
 
-/* Tile styling */
+/* ------------------------------------------------------ */
+/*                    5. Tile styling                     */
+/* ------------------------------------------------------ */
 .tile {
   background-color: var(--tile-bg-color); /* Tile background */
-  color: var(--text-color); /* Tile text color */
-  padding: 40px; /* Internal padding */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 0 20px 5px var(--tile-glow-color); /* Glow effect */
-  width: 80%; /* Default width as a percentage of the viewport */
-  height: auto; /* Allow natural height */
-  max-width: 800px; /* Limit width */
+  color: var(--text-color);               /* Tile text color */
+  padding: 40px;                          /* Internal padding */
+  border-radius: 8px;                     /* Rounded corners */
+
+  /* Pulsating glow animation */
+  animation: pulsate-glow 2.5s ease-in-out infinite;
+
+  width: 80%;                  /* Default width as a percentage of the viewport */
+  height: auto;                /* Allow natural height */
+  max-width: 800px;            /* Limit width */
   max-height: calc(100vh - 40px); /* Prevent overflow on small screens */
-  margin-top: 20px; /* Add spacing from the top of the viewport */
-  box-sizing: border-box; /* Include padding in width/height calculations */
-  overflow: auto; /* Allow scrolling inside the tile for overflowing content */
-  text-align: left; /* Align text to the left */
-  display: flex; /* Flex container */
-  flex-direction: column; /* Stack content vertically */
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
+  margin-top: 20px;            /* Add spacing from the top of the viewport */
+  box-sizing: border-box;      /* Include padding in width/height calculations */
+  overflow: auto;              /* Allow scrolling inside the tile */
+  text-align: left;            /* Align text to the left */
+  display: flex;               /* Flex container */
+  flex-direction: column;      /* Stack content vertically */
+  justify-content: center;     /* Center content vertically */
+  align-items: center;         /* Center content horizontally */
 }
 
-/* Content container */
+/* ------------------------------------------------------ */
+/*                6. Content container                    */
+/* ------------------------------------------------------ */
 .content {
-  width: 100%; /* Full width */
-  max-width: 800px; /* Limit width */
-  padding: 0 10px; /* Add horizontal padding */
+  width: 100%;       /* Full width */
+  max-width: 800px;  /* Limit width */
+  padding: 0 10px;   /* Add horizontal padding */
   box-sizing: border-box; /* Include padding in width calculations */
-  display: flex; /* Center content */
-  justify-content: center; /* Align content horizontally */
-  align-items: flex-start; /* Align content at the top */
+  display: flex;     /* Center content */
+  justify-content: center;    /* Align content horizontally */
+  align-items: flex-start;    /* Align content at the top */
 }
 
-/* Styling for <pre> to prevent scrolling and wrap text */
+/* ------------------------------------------------------ */
+/*         7. Styling for <pre> to wrap text              */
+/* ------------------------------------------------------ */
 pre {
-  white-space: pre-wrap; /* Wrap text */
-  word-wrap: break-word; /* Break long words */
+  white-space: pre-wrap;       /* Wrap text */
+  word-wrap: break-word;       /* Break long words */
   overflow-wrap: break-word;
-  margin: 0; /* Remove default margins */
-  text-align: left; /* Align text to the left */
-  max-width: 100%; /* Ensure no horizontal overflow */
-  overflow: auto; /* Allow vertical scrolling if needed */
+  margin: 0;                   /* Remove default margins */
+  text-align: left;            /* Align text to the left */
+  max-width: 100%;            /* Ensure no horizontal overflow */
+  overflow: auto;              /* Allow vertical scrolling if needed */
 }
 
-/* Responsive styles for smaller screens */
+/* ------------------------------------------------------ */
+/*                8. Responsive styles                    */
+/* ------------------------------------------------------ */
 @media (max-width: 768px) {
   body {
-    padding: 20px 10px; /* Add more padding on smaller devices */
-    align-items: flex-start; /* Ensure tile is aligned from the top */
+    padding: 20px 10px;        /* Add more padding on smaller devices */
+    align-items: flex-start;    /* Ensure tile is aligned from the top */
   }
 
   .tile {
-    width: 90%; /* Make the tile occupy more space */
-    max-height: calc(100vh - 40px); /* Ensure tile fits within the viewport */
-    padding: 20px; /* Reduce internal padding */
-    margin-top: 10px; /* Add spacing from the top */
-    margin-bottom: 10px; /* Prevent bottom clipping */
+    width: 90%;                              /* Make the tile occupy more space */
+    max-height: calc(100vh - 40px);          /* Ensure tile fits within the viewport */
+    padding: 20px;                           /* Reduce internal padding */
+    margin-top: 10px;                        /* Add spacing from the top */
+    margin-bottom: 10px;                     /* Prevent bottom clipping */
   }
 
   pre {
@@ -108,12 +149,14 @@ pre {
 
   .tile {
     max-height: calc(100vh - 20px); /* Ensure tile fits even on short screens */
-    padding: 15px; /* Adjust padding */
-    margin-top: 10px; /* Add spacing from the top */
+    padding: 15px;                  /* Adjust padding */
+    margin-top: 10px;               /* Add spacing from the top */
   }
 }
 
-/* Dark mode toggle switch styling */
+/* ------------------------------------------------------ */
+/*          9. Dark mode toggle switch styling            */
+/* ------------------------------------------------------ */
 .toggle-container {
   position: fixed;
   top: 10px;
@@ -165,15 +208,17 @@ input:checked + .slider:before {
   transform: translateX(14px); /* Move the toggle switch */
 }
 
-/* Desktop overrides */
+/* ------------------------------------------------------ */
+/*                10. Desktop overrides                   */
+/* ------------------------------------------------------ */
 @media (min-width: 1024px) {
-  /* Let the body fill the screen so we can center the tile vertically */
   body {
-    height: 100vh;           /* Required for true vertical centering */
-    align-items: center;     /* Centers tile vertically in Flexbox */
+    /* Let the body fill the screen so we can center the tile vertically */
+    height: 100vh;         /* Required for true vertical centering */
+    align-items: center;   /* Centers tile vertically in Flexbox */
   }
 
-  /* Make the tile 50% wide and remove top margin if you want perfect centering */
+  /* Make the tile 100% wide and remove top margin if you want perfect centering */
   .tile {
     width: 100%;
     margin-top: 0;
