@@ -3,7 +3,7 @@
   --bg-color: #F8F8F8; /* Light mode background */
   --text-color: #333333; /* Light mode text */
   --tile-bg-color: #FFFFFF; /* Light mode tile background */
-  --tile-glow-color: #1E1E1E; /* Light mode glow */
+  --tile-glow-color: #ede9e8; /* Light mode glow */
 }
 
 /* Dark mode variables */
