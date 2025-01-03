@@ -12,6 +12,12 @@
   /* Pulsating glow brightness range (alpha) */
   --glow-alpha-min: 0.5;          /* Lower brightness bound */
   --glow-alpha-max: 0.8;          /* Higher brightness bound */
+
+  /* ---- Swirl gradient colors (Light mode) ---- */
+  --swirl-gradient-1: #FFD3E0;  /* Pinkish color */
+  --swirl-gradient-2: #FFE1B2;  /* Light orange */
+  --swirl-gradient-3: #FFF6B2;  /* Light yellow */
+  --swirl-gradient-speed: 30s;  /* Animation duration (light mode) */
 }
 
 /* ------------------------------------------------------ */
@@ -28,6 +34,12 @@ html.dark-mode {
   /* Adjust brightness range for dark mode if desired */
   --glow-alpha-min: 0.1;
   --glow-alpha-max: 0.3;
+
+  /* ---- Swirl gradient colors (Dark mode) ---- */
+  --swirl-gradient-1: #3a1c71;  
+  --swirl-gradient-2: #d76d77;  
+  --swirl-gradient-3: #ffaf7b;  
+  --swirl-gradient-speed: 60s;  /* Animation duration (dark mode) */
 }
 
 /* ------------------------------------------------------ */
@@ -45,13 +57,38 @@ html.dark-mode {
 }
 
 /* ------------------------------------------------------ */
-/*                     4. General styles                  */
+/*            4. Keyframes for swirling gradient          */
+/* ------------------------------------------------------ */
+@keyframes swirl-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ------------------------------------------------------ */
+/*                     5. General styles                  */
 /* ------------------------------------------------------ */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color); /* Background for light/dark mode */
+
+  /* Animated gradient background */
+  background: linear-gradient(
+    120deg,
+    var(--swirl-gradient-1),
+    var(--swirl-gradient-2),
+    var(--swirl-gradient-3)
+  );
+  background-size: 300% 300%;
+  animation: swirl-gradient var(--swirl-gradient-speed) ease-in-out infinite;
+
   color: var(--text-color);         /* Text color for light/dark mode */
   font-family: Arial, sans-serif;
   transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
@@ -64,13 +101,27 @@ body {
   align-items: flex-start;    /* Align tile at the top */
   margin: 0;
   padding: 20px;              /* Ensure consistent padding for all devices */
-  background-color: transparent; /* Let html handle background color */
+  background-color: transparent; /* Let the swirl gradient show through */
   box-sizing: border-box;     /* Include padding in calculations */
   overflow-y: auto;           /* Allow vertical scrolling if necessary */
 }
 
+/* Optional: an overlay filter if you want a subtle blur/tint */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Example: a slight blur and brightness reduction */
+  backdrop-filter: blur(5px) brightness(0.9);
+  pointer-events: none; /* Let clicks go through to the page */
+  z-index: -1;          /* Make sure it's behind everything */
+}
+
 /* ------------------------------------------------------ */
-/*                    5. Tile styling                     */
+/*                    6. Tile styling                     */
 /* ------------------------------------------------------ */
 .tile {
   background-color: var(--tile-bg-color); /* Tile background */
@@ -96,20 +147,20 @@ body {
 }
 
 /* ------------------------------------------------------ */
-/*                6. Content container                    */
+/*                7. Content container                    */
 /* ------------------------------------------------------ */
 .content {
   width: 100%;       /* Full width */
   max-width: 800px;  /* Limit width */
   padding: 0 10px;   /* Add horizontal padding */
   box-sizing: border-box; /* Include padding in width calculations */
-  display: flex;     /* Center content */
+  display: flex;     /* Flex container to center content */
   justify-content: center;    /* Align content horizontally */
   align-items: flex-start;    /* Align content at the top */
 }
 
 /* ------------------------------------------------------ */
-/*         7. Styling for <pre> to wrap text              */
+/*         8. Styling for <pre> to wrap text              */
 /* ------------------------------------------------------ */
 pre {
   white-space: pre-wrap;       /* Wrap text */
@@ -117,12 +168,12 @@ pre {
   overflow-wrap: break-word;
   margin: 0;                   /* Remove default margins */
   text-align: left;            /* Align text to the left */
-  max-width: 100%;            /* Ensure no horizontal overflow */
+  max-width: 100%;             /* Ensure no horizontal overflow */
   overflow: auto;              /* Allow vertical scrolling if needed */
 }
 
 /* ------------------------------------------------------ */
-/*                8. Responsive styles                    */
+/*                9. Responsive styles                    */
 /* ------------------------------------------------------ */
 @media (max-width: 768px) {
   body {
@@ -157,7 +208,7 @@ pre {
 }
 
 /* ------------------------------------------------------ */
-/*          9. Dark mode toggle switch styling            */
+/*          10. Dark mode toggle switch styling           */
 /* ------------------------------------------------------ */
 .toggle-container {
   position: fixed;
@@ -211,7 +262,7 @@ input:checked + .slider:before {
 }
 
 /* ------------------------------------------------------ */
-/*                10. Desktop overrides                   */
+/*                11. Desktop overrides                   */
 /* ------------------------------------------------------ */
 @media (min-width: 1024px) {
   body {
