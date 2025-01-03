@@ -21,7 +21,7 @@
   --swirl-gradient-1: #F8F8F8;  /* Very light grey base */
   --swirl-gradient-2: #F2F3F6;  /* Slightly bluish hue */
   --swirl-gradient-3: #EBECEF;  /* Another subtle neutral */
-  --swirl-gradient-speed: 2s;   /* Animation duration (light mode) */
+  --swirl-gradient-speed: 10s;   /* Animation duration (light mode) */
 }
 
 /* ------------------------------------------------------ */
@@ -47,7 +47,7 @@ html.dark-mode {
   --swirl-gradient-1: #0B0923;  
   --swirl-gradient-2: #100E2E;
   --swirl-gradient-3: #181736;
-  --swirl-gradient-speed: 2s;   /* Animation duration (dark mode) */
+  --swirl-gradient-speed: 10s;   /* Animation duration (dark mode) */
 }
 
 /* ------------------------------------------------------ */
