@@ -95,20 +95,25 @@ html.dark-mode {
 }
 
 html {
-  height: 100vh;
-  overflow: hidden;
+  /* Allow the page to scroll; use dynamic viewport units to account for mobile browser UI */
+  min-height: 100%;
+  min-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100%;
+  min-height: 100dvh;
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -378,9 +383,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* Fill the viewport but allow content to grow and scroll */
+  min-height: 100dvh;
   padding: var(--space-lg);
-  overflow: hidden;
 }
 
 .tile {
@@ -430,15 +435,18 @@ body {
 
 @media (max-width: 768px) {
   body {
-    overflow: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .main-content {
     padding: var(--space-xl) var(--space-md);
     align-items: flex-start;
     justify-content: flex-start;
-    min-height: 100vh;
+    min-height: 100dvh;
     height: auto;
+    /* Add breathing room so the last line isn't obstructed and is reachable */
+    padding-bottom: calc(var(--space-2xl) + env(safe-area-inset-bottom));
   }
 
   .tile {
