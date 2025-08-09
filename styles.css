@@ -419,6 +419,7 @@ body {
   white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-align: justify;
 }
 
 
@@ -430,10 +431,10 @@ body {
 @media (max-width: 768px) {
   .main-content {
     padding: var(--space-md);
-    align-items: flex-start;
-    padding-top: calc(var(--space-3xl) + 20px);
+    align-items: center;
+    justify-content: center;
   }
-
+  
   .tile {
     padding: var(--space-lg);
   }
