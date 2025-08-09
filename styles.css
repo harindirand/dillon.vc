@@ -1,362 +1,511 @@
-/* ------------------------------------------------------ */
-/*                 1. Light mode variables                */
-/* ------------------------------------------------------ */
+/* ============================================================================
+   GLASSMORPHIC DESIGN SYSTEM - DILLON.VC
+   Following the design language guidelines for premium glassmorphic UI
+   ============================================================================ */
+
+/* CSS Custom Properties - Design Tokens */
 :root {
-  --bg-color: #F8F8F8;         /* Light mode background */
-  --text-color: #333333;       /* Light mode text */
-  --tile-bg-color: #FFFFFF;    /* Light mode tile background */
-
-  /* Instead of a single glow hex, we split it into RGB */
-  --tile-glow-rgb: 237, 233, 232; /* Light mode glow (RGB) */
-
-  /* Pulsating glow brightness range (alpha) */
-  --glow-alpha-min: 0.5;       /* Lower brightness bound */
-  --glow-alpha-max: 0.8;       /* Higher brightness bound */
-
-  /*
-    Light Mode Swirl Gradient:
-    Subtle tones close to #F8F8F8, with a hint of soft grey & bluish tint
-    to create a gentle swirling effect without being too bright.
-  */
-  --swirl-gradient-1: #F8F8F8;  /* Very light grey base */
-  --swirl-gradient-2: #F2F3F6;  /* Slightly bluish hue */
-  --swirl-gradient-3: #EBECEF;  /* Another subtle neutral */
-  --swirl-gradient-speed: 10s;   /* Animation duration (light mode) */
+  /* Brand Colors */
+  --brand-red: #FF4F5D;
+  --brand-orange: #FFAA64;
+  
+  /* Light Theme */
+  --bg-light: #ffffff;
+  --surface-light: #ffffff;
+  --text-light: #1f2937;
+  --text-muted-light: #6b7280;
+  
+  /* Dark Theme */
+  --bg-dark: #0B1220;
+  --surface-dark: #111827;
+  --text-dark: #f9fafb;
+  --text-muted-dark: #9ca3af;
+  
+  /* Glass System - Elevation Levels */
+  --glass-bg-low: rgba(255, 255, 255, 0.05);
+  --glass-bg-mid: rgba(255, 255, 255, 0.20);
+  --glass-bg-high: rgba(255, 255, 255, 0.85);
+  --glass-border-light: rgba(255, 255, 255, 0.30);
+  --glass-border-dark: rgba(55, 65, 81, 0.30);
+  
+  /* Blur Levels */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  
+  /* Border Radius */
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+  
+  /* Shadows */
+  --shadow-low: 0 6px 16px rgba(0, 0, 0, 0.08);
+  --shadow-mid: 0 10px 28px rgba(0, 0, 0, 0.10);
+  --shadow-high: 0 16px 40px rgba(0, 0, 0, 0.12);
+  
+  /* Background Elements */
+  --grid-dot-size: 1px;
+  --grid-spacing: 24px;
+  --grid-opacity-light: 0.03;
+  --grid-opacity-dark: 0.05;
+  
+  /* Typography */
+  --font-sans: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'EB Garamond', 'Times New Roman', serif;
+  
+  /* Spacing Scale */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Active theme variables (light by default) */
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --text: var(--text-light);
+  --text-muted: var(--text-muted-light);
+  --glass-border: var(--glass-border-light);
+  --grid-opacity: var(--grid-opacity-light);
 }
 
-/* ------------------------------------------------------ */
-/*                 2. Dark mode variables                 */
-/* ------------------------------------------------------ */
+/* Dark Mode Variables */
 html.dark-mode {
-  --bg-color: #030614;           /* Dark mode background */
-  --text-color: #FFF;            /* Dark mode text */
-  --tile-bg-color: #0B0923;      /* Dark mode tile background */
-
-  /* Dark mode glow (RGB) */
-  --tile-glow-rgb: 210, 197, 250; /* Soft purple example */
-
-  /* Adjust brightness range for dark mode if desired */
-  --glow-alpha-min: 0.1;
-  --glow-alpha-max: 0.3;
-
-  /*
-    Dark Mode Swirl Gradient:
-    Subtle purplish/navy tones that align well with #030614 and #0B0923
-    so it's cool but not too flashy.
-  */
-  --swirl-gradient-1: #0B0923;  
-  --swirl-gradient-2: #100E2E;
-  --swirl-gradient-3: #181736;
-  --swirl-gradient-speed: 10s;   /* Animation duration (dark mode) */
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --text: var(--text-dark);
+  --text-muted: var(--text-muted-dark);
+  --glass-border: var(--glass-border-dark);
+  --grid-opacity: var(--grid-opacity-dark);
+  
+  /* Adjust glass backgrounds for dark mode */
+  --glass-bg-low: rgba(17, 24, 39, 0.10);
+  --glass-bg-mid: rgba(17, 24, 39, 0.40);
+  --glass-bg-high: rgba(17, 24, 39, 0.90);
 }
 
-/* ------------------------------------------------------ */
-/*            3. Keyframes for pulsating glow             */
-/* ------------------------------------------------------ */
-@keyframes pulsate-glow {
-  0%, 100% {
-    /* Slightly larger than the minimum, e.g. 25px radius, 7px spread */
-    box-shadow: 0 0 25px 7px rgba(var(--tile-glow-rgb), var(--glow-alpha-min));
-  }
-  50% {
-    /* Just a bit bigger, e.g. 28px radius, 9px spread */
-    box-shadow: 0 0 28px 9px rgba(var(--tile-glow-rgb), var(--glow-alpha-max));
-  }
+/* ============================================================================
+   RESET & BASE STYLES
+   ============================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* ------------------------------------------------------ */
-/*            4. Keyframes for swirling gradient          */
-/* ------------------------------------------------------ */
-@keyframes swirl-gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* ------------------------------------------------------ */
-/*                     5. General styles                  */
-/* ------------------------------------------------------ */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
-  /* Animated gradient background */
-  background: linear-gradient(
-    120deg,
-    var(--swirl-gradient-1),
-    var(--swirl-gradient-2),
-    var(--swirl-gradient-3)
-  );
-  background-size: 300% 300%;
-  animation: swirl-gradient var(--swirl-gradient-speed) ease-in-out infinite;
-
-  /* Text and transitions */
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+html {
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
-  display: flex;              /* Flexbox for centering */
-  justify-content: center;    /* Center horizontally */
-  align-items: flex-start;    /* Align tile at the top */
   margin: 0;
-  padding: 20px;              /* Ensure consistent padding for all devices */
-  background-color: transparent; /* Let the swirl gradient show through */
-  box-sizing: border-box;     /* Include padding in calculations */
-  overflow-y: auto;           /* Allow vertical scrolling if necessary */
+  padding: 0;
+  height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 
-  Optional overlay filter:
-  If you find the swirling too bright or distracting, 
-  you can use this to soften/blend the background.
-*/
-body::before {
-  content: "";
+/* ============================================================================
+   LIVING BACKGROUND SYSTEM
+   ============================================================================ */
+
+.bg-canvas {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Dotted Grid Layer */
+.bg-grid {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(5px) brightness(0.9);
-  pointer-events: none; /* Let clicks go through to the page */
-  z-index: -1;          /* Make sure it's behind everything */
+  background-image: radial-gradient(circle, var(--text) var(--grid-dot-size), transparent var(--grid-dot-size));
+  background-size: var(--grid-spacing) var(--grid-spacing);
+  opacity: var(--grid-opacity);
 }
 
-/* ------------------------------------------------------ */
-/*                    6. Tile styling                     */
-/* ------------------------------------------------------ */
-.tile {
-  /* Glassmorphic background */
-  background: rgba(20, 20, 20, 0.8);
-  color: rgba(255, 255, 255, 0.9);
-  font-family: 'Helvetica Neue', system-ui, sans-serif;
-  
-  /* Glassmorphic properties */
-  border-radius: 12px;
-  outline: 0.5px solid rgba(255, 255, 255, 0.2);
+/* Swirling Color Blooms */
+.bg-blooms {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  padding: 12px;
+}
+
+.bloom {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.bloom-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--brand-red) 0%, transparent 70%);
+  top: 10%;
+  left: 20%;
+  opacity: 0.15;
+  animation: swirl-1 25s ease-in-out infinite;
+}
+
+.bloom-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, var(--brand-orange) 0%, transparent 70%);
+  top: 60%;
+  right: 15%;
+  opacity: 0.20;
+  animation: swirl-2 30s ease-in-out infinite reverse;
+}
+
+.bloom-3 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--brand-red) 0%, transparent 70%);
+  bottom: 20%;
+  left: 10%;
+  opacity: 0.12;
+  animation: swirl-3 35s ease-in-out infinite;
+}
+
+.bloom-4 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--brand-orange) 0%, transparent 70%);
+  top: 30%;
+  right: 30%;
+  opacity: 0.18;
+  animation: swirl-4 28s ease-in-out infinite reverse;
+}
+
+/* Grain Overlay */
+.bg-grain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%);
+  opacity: 0.03;
+  animation: grain-drift 8s steps(10) infinite;
+}
+
+/* ============================================================================
+   KEYFRAME ANIMATIONS
+   ============================================================================ */
+
+@keyframes swirl-1 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(30px, -20px) scale(1.1) rotate(90deg); }
+  50% { transform: translate(-20px, 30px) scale(0.9) rotate(180deg); }
+  75% { transform: translate(20px, 20px) scale(1.05) rotate(270deg); }
+}
+
+@keyframes swirl-2 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(-25px, 35px) scale(1.15) rotate(120deg); }
+  66% { transform: translate(40px, -15px) scale(0.85) rotate(240deg); }
+}
+
+@keyframes swirl-3 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  20% { transform: translate(15px, -25px) scale(1.05) rotate(72deg); }
+  40% { transform: translate(-30px, 10px) scale(0.95) rotate(144deg); }
+  60% { transform: translate(25px, 30px) scale(1.1) rotate(216deg); }
+  80% { transform: translate(-10px, -20px) scale(0.9) rotate(288deg); }
+}
+
+@keyframes swirl-4 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-35px, -35px) scale(1.2) rotate(180deg); }
+}
+
+@keyframes grain-drift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5px, -10px); }
+  20% { transform: translate(-10px, 5px); }
+  30% { transform: translate(5px, -5px); }
+  40% { transform: translate(-5px, 10px); }
+  50% { transform: translate(10px, 5px); }
+  60% { transform: translate(5px, -10px); }
+  70% { transform: translate(-10px, -5px); }
+  80% { transform: translate(-5px, 5px); }
+  90% { transform: translate(5px, 10px); }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .bloom, .bg-grain {
+    animation: none !important;
+  }
   
-  /* Pulsating glow animation */
-  animation: pulsate-glow 25s ease-in-out infinite;
-  
-  /* Layout properties */
-  width: 80%;
-  height: auto;
-  max-width: 800px;
-  max-height: calc(100vh - 40px);
-  margin-top: 20px;
-  box-sizing: border-box;
-  text-align: left;
+  html.reduce-motion .bloom,
+  html.reduce-motion .bg-grain {
+    animation: none !important;
+  }
+}
+
+/* ============================================================================
+   GLASS ELEVATION SYSTEM
+   ============================================================================ */
+
+.glass-e1 {
+  background: var(--glass-bg-low);
+  backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-low);
+}
+
+.glass-e2 {
+  background: var(--glass-bg-mid);
+  backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-mid);
+}
+
+.glass-e3 {
+  background: var(--glass-bg-high);
+  backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-high);
+}
+
+/* ============================================================================
+   SIMPLE GLASSMORPHIC TOGGLE
+   ============================================================================ */
+
+.theme-toggle {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(var(--blur-md)) saturate(1.8);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-pill);
+  width: 44px;
+  height: 22px;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s ease;
+  padding: 2px;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}
+
+.toggle-orb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode state */
+.theme-toggle.dark {
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(var(--blur-md)) saturate(1.5);
+}
+
+.theme-toggle.dark:hover {
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.theme-toggle.dark .toggle-orb {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================================
+   MAIN CONTENT LAYOUT
+   ============================================================================ */
+
+.main-content {
+  display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* Position for pseudo-element */
+  height: 100vh;
+  padding: var(--space-lg);
+  overflow: hidden;
+}
+
+.tile {
+  max-width: 800px;
+  width: 100%;
+  border-radius: var(--radius-card);
+  padding: var(--space-xl);
+  background: var(--glass-bg-mid);
+  backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-mid);
   position: relative;
 }
 
-/* Glassmorphic pseudo-element for blur effect */
-.tile::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.15);
-  filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
-  z-index: -1;
+
+
+/* ============================================================================
+   TYPOGRAPHY SYSTEM
+   ============================================================================ */
+
+.tile-title {
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 var(--space-lg);
 }
 
-/* Hover state for tile */
-.tile:hover {
-  background: rgba(20, 20, 20, 0.9);
-}
-
-/* Custom scrollbar for WebKit browsers */
-.tile::-webkit-scrollbar {
-  width: 8px;
-}
-
-.tile::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
-}
-
-.tile::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-
-.tile::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* ------------------------------------------------------ */
-/*                7. Content container                    */
-/* ------------------------------------------------------ */
-.content {
-  width: 100%;
-  max-width: 800px;
-  padding: 0 10px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-/* ------------------------------------------------------ */
-/*         8. Styling for <pre> to wrap text              */
-/* ------------------------------------------------------ */
-pre {
-  white-space: pre-wrap;
+.copy {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0;
+  white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  margin: 0;
-  text-align: left;
-  max-width: 100%;
-  overflow: auto;
-  color: rgba(255, 255, 255, 0.9);
-  font-family: 'Helvetica Neue', system-ui, sans-serif;
 }
 
-/* Custom scrollbar for pre elements */
-pre::-webkit-scrollbar {
-  width: 8px;
-}
 
-pre::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
-}
 
-pre::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
 
-pre::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* ------------------------------------------------------ */
-/*                9. Responsive styles                    */
-/* ------------------------------------------------------ */
 @media (max-width: 768px) {
-  body {
-    padding: 20px 10px;
+  .main-content {
+    padding: var(--space-md);
     align-items: flex-start;
+    padding-top: calc(var(--space-3xl) + 20px);
   }
 
   .tile {
-    width: 90%;
-    max-height: calc(100vh - 40px);
-    padding: 12px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: var(--space-lg);
   }
-
-  pre {
-    font-size: 0.9rem; /* Slightly smaller text for mobile */
+  
+  .copy {
+    font-size: 0.95rem;
+  }
+  
+  .theme-toggle {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 38px;
+    height: 18px;
+  }
+  
+  .toggle-orb {
+    width: 14px;
+    height: 14px;
   }
 }
 
-/* Extra handling for shorter screens */
-@media (max-height: 600px) {
-  body {
-    padding: 10px; /* Reduce padding for short screens */
-  }
-
+@media (max-width: 480px) {
   .tile {
-    max-height: calc(100vh - 20px);
-    padding: 12px;
-    margin-top: 10px;
+    padding: var(--space-md);
+  }
+  
+  .copy {
+    font-size: 0.9rem;
   }
 }
 
-/* ------------------------------------------------------ */
-/*          10. Dark mode toggle switch styling           */
-/* ------------------------------------------------------ */
-.toggle-container {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-}
+/* ============================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================================================ */
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 34px;
-  height: 20px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.2);
-  transition: 0.4s;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: rgba(255, 255, 255, 0.9);
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-input:checked + .slider:before {
-  transform: translateX(14px); /* Move the toggle switch */
-}
-
-/* ------------------------------------------------------ */
-/*                11. Desktop overrides                   */
-/* ------------------------------------------------------ */
-@media (min-width: 1024px) {
-  body {
-    /* Let the body fill the screen so we can center the tile vertically */
-    height: 100vh;
-    align-items: center;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
+}
 
-  /* Make the tile 100% wide and remove top margin if you want perfect centering */
-  .tile {
-    width: 100%;
-    margin-top: 0;
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-border-light: rgba(0, 0, 0, 0.8);
+    --glass-border-dark: rgba(255, 255, 255, 0.8);
+  }
+  
+  .glass-e1, .glass-e2, .glass-e3 {
+    border-width: 2px;
+  }
+}
+
+/* Focus management */
+:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Print styles */
+@media print {
+  .bg-canvas,
+  .nav-pill {
+    display: none;
+  }
+  
+  .hero-card {
+    background: white;
+    box-shadow: none;
+    border: 1px solid #ccc;
   }
 }

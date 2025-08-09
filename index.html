@@ -1,63 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dillon Harindiran: an executive summary.">
-    <meta name="author" content="Dillon Harindiran">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Dillon Harindiran: Building something new in the legal space. Former CEO & Co-Founder of Slipstream." />
+    <meta name="author" content="Dillon Harindiran" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="color-scheme" content="light dark" />
     <title>Dillon Harindiran</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.png" type="image/png"> <!-- Favicon Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="favicon.png" type="image/png" />
 </head>
 <body>
-    <div class="content">
-        <!-- Tile container for text -->
-        <div class="tile">
-            <pre id="textDisplay"></pre>
+    <!-- Fixed living background: grid, blooms, grain -->
+    <div class="bg-canvas" aria-hidden="true">
+        <div class="bg-grid"></div>
+        <div class="bg-blooms">
+            <div class="bloom bloom-1"></div>
+            <div class="bloom bloom-2"></div>
+            <div class="bloom bloom-3"></div>
+            <div class="bloom bloom-4"></div>
         </div>
+        <div class="bg-grain"></div>
     </div>
-    <!-- Dark mode toggle -->
-    <div class="toggle-container">
-        <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label>
-    </div>
-    <script>
-        // Fetch and display the text content
-        fetch('index.txt')
-            .then(response => response.text())
-            .then(text => document.getElementById('textDisplay').textContent = text)
-            .catch(() => document.getElementById('textDisplay').textContent = "Failed to load content.");
 
-        // Dark mode toggle functionality
-        const toggle = document.getElementById('darkModeToggle');
+    <!-- Main content -->
+    <main class="main-content">
+        <section class="tile glass-e2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <div class="toggle-orb"></div>
+            </button>
+            <pre id="textDisplay" class="copy"></pre>
+        </section>
+    </main>
+
+    <script>
+        // Fetch and display the original text content
+        fetch('index.txt')
+            .then((response) => response.text())
+            .then((text) => {
+                const pre = document.getElementById('textDisplay');
+                pre.textContent = text;
+            })
+            .catch(() => (document.getElementById('textDisplay').textContent = 'Failed to load content.'));
+
+        // Theme toggle functionality
+        const toggle = document.getElementById('themeToggle');
         const html = document.documentElement;
 
-        // Check and apply saved user preference or set default to dark mode
-        const savedMode = localStorage.getItem('darkMode');
-        if (savedMode === 'enabled' || savedMode === null) {
+        // Check system preference and saved preference
+        const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const savedTheme = localStorage.getItem('theme');
+        const initialTheme = savedTheme || getSystemTheme();
+
+        // Apply initial theme
+        if (initialTheme === 'dark') {
             html.classList.add('dark-mode');
-            toggle.checked = true;
-            if (savedMode === null) {
-                localStorage.setItem('darkMode', 'enabled'); // Save default as dark mode
-            }
-        } else {
-            html.classList.remove('dark-mode');
-            toggle.checked = false;
+            toggle.classList.add('dark');
         }
 
-        // Listen for toggle change
-        toggle.addEventListener('change', () => {
-            if (toggle.checked) {
-                html.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
+        // Theme toggle handler
+        toggle.addEventListener('click', () => {
+            const isDark = html.classList.contains('dark-mode');
+            
+            if (isDark) {
                 html.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
+                toggle.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark-mode');
+                toggle.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
             }
         });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    html.classList.add('dark-mode');
+                    toggle.classList.add('dark');
+                } else {
+                    html.classList.remove('dark-mode');
+                    toggle.classList.remove('dark');
+                }
+            }
+        });
+
+        // Respect reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            html.classList.add('reduce-motion');
+        }
     </script>
 </body>
 </html>
