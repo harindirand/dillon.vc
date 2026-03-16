@@ -123,27 +123,11 @@ body {
   justify-content: center;
 }
 
-.bg-ripple-grid {
-  display: grid;
-  gap: 0;
+#bgRippleCanvas {
+  display: block;
   margin: auto;
   opacity: 0.6;
-}
-
-.bg-ripple-cell {
-  box-sizing: border-box;
-  border: 0.5px solid var(--cell-border-color);
-  background-color: var(--cell-fill-color);
-  opacity: 0.4;
-  transition: opacity 0.15s ease, box-shadow 0.15s ease;
-  will-change: transform;
-  contain: layout style paint;
   cursor: pointer;
-}
-
-.bg-ripple-cell:hover {
-  opacity: 0.9;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 /* Dotted grid – counsel AnimatedBackground exact */
@@ -275,10 +259,7 @@ body {
   90% { transform: translate(-10%, 10%); }
 }
 
-/* Reduced motion: no ripple animation */
-html.reduce-motion .bg-ripple-cell {
-  transition: none;
-}
+/* Reduced motion: ripple triggers are disabled in JS (triggerRipple returns early) */
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
