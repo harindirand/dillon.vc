@@ -3,30 +3,19 @@
    Following the design language guidelines for premium glassmorphic UI
    ============================================================================ */
 
-/* CSS Custom Properties - Design Tokens */
+/* CSS Custom Properties - Counsel-style (black bg, white text, Inter) */
 :root {
-  /* Brand Colors */
-  --brand-red: #FF4F5D;
-  --brand-orange: #FFAA64;
+  /* Counsel-style: black background, white foreground */
+  --bg: #000000;
+  --surface: #000000;
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.65);
   
-  /* Light Theme */
-  --bg-light: #ffffff;
-  --surface-light: #ffffff;
-  --text-light: #1f2937;
-  --text-muted-light: #6b7280;
-  
-  /* Dark Theme */
-  --bg-dark: #0B1220;
-  --surface-dark: #111827;
-  --text-dark: #f9fafb;
-  --text-muted-dark: #9ca3af;
-  
-  /* Glass System - Elevation Levels */
-  --glass-bg-low: rgba(255, 255, 255, 0.05);
-  --glass-bg-mid: rgba(255, 255, 255, 0.20);
-  --glass-bg-high: rgba(255, 255, 255, 0.85);
-  --glass-border-light: rgba(255, 255, 255, 0.30);
-  --glass-border-dark: rgba(55, 65, 81, 0.30);
+  /* Glass / borders (counsel: border-white/5) */
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-bg-low: rgba(255, 255, 255, 0.03);
+  --glass-bg-mid: rgba(255, 255, 255, 0.06);
+  --glass-bg-high: rgba(255, 255, 255, 0.12);
   
   /* Blur Levels */
   --blur-sm: 4px;
@@ -34,24 +23,27 @@
   --blur-lg: 16px;
   --blur-xl: 24px;
   
-  /* Border Radius */
-  --radius-card: 16px;
+  /* Border Radius (counsel: --radius 0.5rem) */
+  --radius: 0.5rem;
+  --radius-card: var(--radius);
   --radius-pill: 9999px;
   
-  /* Shadows */
-  --shadow-low: 0 6px 16px rgba(0, 0, 0, 0.08);
-  --shadow-mid: 0 10px 28px rgba(0, 0, 0, 0.10);
-  --shadow-high: 0 16px 40px rgba(0, 0, 0, 0.12);
+  /* Shadows (subtle on dark) */
+  --shadow-low: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-mid: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-high: 0 12px 32px rgba(0, 0, 0, 0.5);
   
-  /* Background Elements */
-  --grid-dot-size: 1px;
+  /* Background: dot grid (counsel AnimatedBackground: #525252 1px, 24px, opacity 0.05) */
+  --grid-dot-color: #525252;
   --grid-spacing: 24px;
-  --grid-opacity-light: 0.03;
-  --grid-opacity-dark: 0.05;
+  --grid-opacity: 0.05;
   
-  /* Typography */
-  --font-sans: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --font-serif: 'EB Garamond', 'Times New Roman', serif;
+  /* Ripple grid cells (counsel: Tailwind gray.700 / gray.900) */
+  --cell-border-color: #374151;
+  --cell-fill-color: #111827;
+  
+  /* Typography - Inter like counsel */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   
   /* Spacing Scale */
   --space-xs: 0.5rem;
@@ -61,29 +53,6 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --space-3xl: 4rem;
-  
-  /* Active theme variables (light by default) */
-  --bg: var(--bg-light);
-  --surface: var(--surface-light);
-  --text: var(--text-light);
-  --text-muted: var(--text-muted-light);
-  --glass-border: var(--glass-border-light);
-  --grid-opacity: var(--grid-opacity-light);
-}
-
-/* Dark Mode Variables */
-html.dark-mode {
-  --bg: var(--bg-dark);
-  --surface: var(--surface-dark);
-  --text: var(--text-dark);
-  --text-muted: var(--text-muted-dark);
-  --glass-border: var(--glass-border-dark);
-  --grid-opacity: var(--grid-opacity-dark);
-  
-  /* Adjust glass backgrounds for dark mode */
-  --glass-bg-low: rgba(17, 24, 39, 0.10);
-  --glass-bg-mid: rgba(17, 24, 39, 0.40);
-  --glass-bg-high: rgba(17, 24, 39, 0.90);
 }
 
 /* ============================================================================
@@ -112,11 +81,14 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+::selection {
+  background: rgba(255, 255, 255, 0.3);
+  color: #000;
 }
 
 /* ============================================================================
@@ -129,144 +101,192 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+/* Non-ripple layers don't capture clicks so ripple grid gets them */
+.bg-canvas > .bg-dot-grid,
+.bg-canvas > .bg-swirls,
+.bg-canvas > .bg-grain {
   pointer-events: none;
 }
 
-/* Dotted Grid Layer */
-.bg-grid {
+.bg-ripple-wrap {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(circle, var(--text) var(--grid-dot-size), transparent var(--grid-dot-size));
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-ripple-grid {
+  display: grid;
+  gap: 0;
+  margin: auto;
+  opacity: 0.6;
+}
+
+.bg-ripple-cell {
+  box-sizing: border-box;
+  border: 0.5px solid var(--cell-border-color);
+  background-color: var(--cell-fill-color);
+  opacity: 0.4;
+  transition: opacity 0.15s ease, box-shadow 0.15s ease;
+  will-change: transform;
+  contain: layout style paint;
+  cursor: pointer;
+}
+
+.bg-ripple-cell:hover {
+  opacity: 0.9;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Dotted grid – counsel AnimatedBackground exact */
+.bg-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--grid-dot-color) 1px, transparent 1px);
   background-size: var(--grid-spacing) var(--grid-spacing);
   opacity: var(--grid-opacity);
 }
 
-/* Swirling Color Blooms */
-.bg-blooms {
+/* Swirling shapes – counsel AnimatedBackground (gray only) */
+.bg-swirls {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  inset: 0;
 }
 
-.bloom {
+.bg-swirl {
   position: absolute;
   border-radius: 50%;
-  filter: blur(40px);
   pointer-events: none;
 }
 
-.bloom-1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--brand-red) 0%, transparent 70%);
-  top: 10%;
-  left: 20%;
-  opacity: 0.15;
-  animation: swirl-1 25s ease-in-out infinite;
-}
-
-.bloom-2 {
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, var(--brand-orange) 0%, transparent 70%);
-  top: 60%;
-  right: 15%;
-  opacity: 0.20;
-  animation: swirl-2 30s ease-in-out infinite reverse;
-}
-
-.bloom-3 {
+.bg-swirl-1 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, var(--brand-red) 0%, transparent 70%);
-  bottom: 20%;
-  left: 10%;
+  top: 5%;
+  left: 15%;
+  background: radial-gradient(circle, #404040 0%, transparent 70%);
+  filter: blur(35px);
+  opacity: 0.2;
+  animation: counsel-swirl 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.bg-swirl-2 {
+  width: 450px;
+  height: 450px;
+  top: 50%;
+  right: 10%;
+  background: radial-gradient(circle, #525252 0%, transparent 70%);
+  filter: blur(40px);
+  opacity: 0.15;
+  animation: counsel-swirl-slow 20s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+}
+
+.bg-swirl-3 {
+  width: 400px;
+  height: 400px;
+  top: 25%;
+  left: 50%;
+  background: radial-gradient(circle, #404040 0%, transparent 65%);
+  filter: blur(45px);
+  opacity: 0.15;
+  animation: counsel-swirl-center 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: -5s;
+}
+
+.bg-swirl-4 {
+  width: 350px;
+  height: 350px;
+  bottom: 15%;
+  left: 5%;
+  background: radial-gradient(circle, #404040 0%, transparent 60%);
+  filter: blur(50px);
   opacity: 0.12;
-  animation: swirl-3 35s ease-in-out infinite;
+  animation: counsel-swirl 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: -10s;
 }
 
-.bloom-4 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, var(--brand-orange) 0%, transparent 70%);
-  top: 30%;
-  right: 30%;
-  opacity: 0.18;
-  animation: swirl-4 28s ease-in-out infinite reverse;
+.bg-swirl-5 {
+  width: 380px;
+  height: 380px;
+  top: 20%;
+  right: 35%;
+  background: radial-gradient(circle, #525252 0%, transparent 65%);
+  filter: blur(40px);
+  opacity: 0.13;
+  animation: counsel-swirl-slow 20s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+  animation-delay: -15s;
 }
 
-/* Grain Overlay */
+/* Grain overlay – counsel global.css .grain exact */
 .bg-grain {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%);
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 25% 25%, #525252 2px, transparent 0),
+    radial-gradient(circle at 75% 75%, #737373 1px, transparent 0),
+    radial-gradient(circle at 25% 75%, #525252 0.5px, transparent 0),
+    radial-gradient(circle at 75% 25%, #737373 1.5px, transparent 0);
+  background-size: 100px 100px, 80px 80px, 120px 120px, 90px 90px;
   opacity: 0.03;
-  animation: grain-drift 8s steps(10) infinite;
+  animation: counsel-grain 8s steps(10) infinite;
 }
 
 /* ============================================================================
-   KEYFRAME ANIMATIONS
+   KEYFRAME ANIMATIONS (counsel tailwind exact)
    ============================================================================ */
 
-@keyframes swirl-1 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  25% { transform: translate(30px, -20px) scale(1.1) rotate(90deg); }
-  50% { transform: translate(-20px, 30px) scale(0.9) rotate(180deg); }
-  75% { transform: translate(20px, 20px) scale(1.05) rotate(270deg); }
+@keyframes counsel-swirl {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(25px, -15px) scale(1.15); }
+  66% { transform: translate(-20px, 20px) scale(1.2); }
 }
 
-@keyframes swirl-2 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate(-25px, 35px) scale(1.15) rotate(120deg); }
-  66% { transform: translate(40px, -15px) scale(0.85) rotate(240deg); }
+@keyframes counsel-swirl-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(25px, -15px) scale(1.15); }
+  66% { transform: translate(-20px, 20px) scale(1.2); }
 }
 
-@keyframes swirl-3 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  20% { transform: translate(15px, -25px) scale(1.05) rotate(72deg); }
-  40% { transform: translate(-30px, 10px) scale(0.95) rotate(144deg); }
-  60% { transform: translate(25px, 30px) scale(1.1) rotate(216deg); }
-  80% { transform: translate(-10px, -20px) scale(0.9) rotate(288deg); }
+@keyframes counsel-swirl-center {
+  0%, 100% { transform: translate(-50%, 0) scale(1); }
+  33% { transform: translate(calc(-50% + 25px), -15px) scale(1.15); }
+  66% { transform: translate(calc(-50% - 20px), 20px) scale(1.2); }
 }
 
-@keyframes swirl-4 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50% { transform: translate(-35px, -35px) scale(1.2) rotate(180deg); }
-}
-
-@keyframes grain-drift {
+@keyframes counsel-grain {
   0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5px, -10px); }
-  20% { transform: translate(-10px, 5px); }
-  30% { transform: translate(5px, -5px); }
-  40% { transform: translate(-5px, 10px); }
-  50% { transform: translate(10px, 5px); }
-  60% { transform: translate(5px, -10px); }
-  70% { transform: translate(-10px, -5px); }
-  80% { transform: translate(-5px, 5px); }
-  90% { transform: translate(5px, 10px); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Reduced motion: no ripple animation */
+html.reduce-motion .bg-ripple-cell {
+  transition: none;
 }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  .bloom, .bg-grain {
+  .bg-swirl,
+  .bg-grain {
     animation: none !important;
   }
-  
-  html.reduce-motion .bloom,
+  html.reduce-motion .bg-swirl,
   html.reduce-motion .bg-grain {
     animation: none !important;
   }
@@ -298,105 +318,43 @@ body {
 }
 
 /* ============================================================================
-   SIMPLE GLASSMORPHIC TOGGLE
+   MAIN CONTENT LAYOUT (counsel-style tile: black + border-white/5)
    ============================================================================ */
 
-.theme-toggle {
-  position: fixed;
-  top: var(--space-md);
-  right: var(--space-md);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(var(--blur-md)) saturate(1.8);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: var(--radius-pill);
-  width: 44px;
-  height: 22px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  transition: all 0.3s ease;
-  padding: 2px;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.04),
-    0 1px 2px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  z-index: 1000;
-}
-
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 
-    0 3px 12px rgba(0, 0, 0, 0.06),
-    0 1px 3px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--brand-red);
-  outline-offset: 2px;
-}
-
-.toggle-orb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Dark mode state */
-.theme-toggle.dark {
-  justify-content: flex-end;
-  background: rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(var(--blur-md)) saturate(1.5);
-}
-
-.theme-toggle.dark:hover {
-  background: rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 
-    0 3px 12px rgba(0, 0, 0, 0.15),
-    0 1px 3px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.theme-toggle.dark .toggle-orb {
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-/* ============================================================================
-   MAIN CONTENT LAYOUT
-   ============================================================================ */
-
+/* Counsel: max-w-content 90rem, px-6 lg:px-8. pointer-events: none so clicks pass through to ripple grid; tile captures clicks. */
 .main-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Fill the viewport but allow content to grow and scroll */
   min-height: 100dvh;
-  padding: var(--space-lg);
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.main-content > .tile {
+  pointer-events: auto;
 }
 
+@media (min-width: 1024px) {
+  .main-content {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Counsel tiles: slightly transparent (bg-white/5), border-white/10, backdrop-blur */
 .tile {
-  max-width: 800px;
   width: 100%;
-  border-radius: var(--radius-card);
+  max-width: 800px;
+  border-radius: 1rem;
   padding: var(--space-xl);
-  background: var(--glass-bg-mid);
-  backdrop-filter: blur(var(--blur-md));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-mid);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
   position: relative;
 }
 
@@ -415,16 +373,43 @@ body {
   margin: 0 0 var(--space-lg);
 }
 
+/* Counsel: text-white, secondary #6b7280 (gray-500) */
 .copy {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: var(--text);
   margin: 0;
-  white-space: pre-line;
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-align: justify;
+}
+
+.copy-block {
+  white-space: pre-line;
+}
+
+/* Inline pill links (counsel-style: rounded-full, border-white/10, bg-white/5) */
+.copy-pill {
+  display: inline;
+  padding: 0.125rem 0.5rem;
+  margin: 0 0.05em;
+  font-size: inherit;
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.copy-pill:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.copy-pill:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
 }
 
 
@@ -460,18 +445,6 @@ body {
     font-size: 1.125rem;
     line-height: 1.6;
   }
-  
-  .theme-toggle {
-    top: var(--space-md);
-    right: var(--space-md);
-    width: 38px;
-    height: 18px;
-  }
-  
-  .toggle-orb {
-    width: 14px;
-    height: 14px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -487,11 +460,6 @@ body {
   .copy {
     font-size: 1.0625rem;
     line-height: 1.65;
-  }
-  
-  .theme-toggle {
-    top: var(--space-sm);
-    right: var(--space-sm);
   }
 }
 
@@ -510,8 +478,7 @@ body {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --glass-border-light: rgba(0, 0, 0, 0.8);
-    --glass-border-dark: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.3);
   }
   
   .glass-e1, .glass-e2, .glass-e3 {
@@ -521,20 +488,20 @@ body {
 
 /* Focus management */
 :focus-visible {
-  outline: 2px solid var(--brand-red);
+  outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 /* Print styles */
 @media print {
-  .bg-canvas,
-  .nav-pill {
+  .bg-canvas {
     display: none;
   }
   
-  .hero-card {
+  .tile {
     background: white;
+    color: #111;
     box-shadow: none;
     border: 1px solid #ccc;
   }

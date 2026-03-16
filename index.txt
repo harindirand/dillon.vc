@@ -1,9 +1,7 @@
-Hi, I'm Dillon — a second-time founder building something new in the legal space. I split my time between San Francisco and London, working quietly on a product I believe will change how law firms operate.
+Hi, I'm Dillon – a second-time founder based in London, building Counsel.
 
-My last company, Slipstream, raised $1.1M from top-tier investors — including some of the first backers of Facebook, Uber, Airbnb, Dropbox, and Airtable — and joined Neo's '23 batch. Before that, I worked in JP Morgan's TMT investment banking team.
+Counsel is the context layer beneath legal AI. Law firms use dozens of tools, but none of them actually know who the client is, what the matter is, or what's already happened. We fix that – passively, with zero setup – so every application in the stack gets full contextual awareness from day one.
 
-We began as a rentals-as-a-service platform for brands like Bird, then pivoted to tackle the credit bureau industry with a real-time bureau. We solved the cold-start problem but hit the hard limit of unreliable real-time data — so we made the rare call to return funds.
-
-I'm now applying everything I learned to a bigger, more ambitious problem.
+Before Counsel, I built Slipstream – a real-time credit bureau backed by Neo, with $1.1M from great investors. We solved the cold-start problem but hit the hard limit of unreliable real-time lender data. We returned funds and wound down. Before that, I worked on $8bn of TMT deals at JP Morgan.
 
 If you want to connect, you can grab a slot directly: calendly.com/dillon
