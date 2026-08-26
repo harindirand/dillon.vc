@@ -3,242 +3,38 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Dillon Harindiran: Building something new in the legal space. Former CEO & Co-Founder of Slipstream." />
+    <meta name="description" content="Dillon Harindiran: Building Context Systems. Based in London; often in NY and SF." />
     <meta name="author" content="Dillon Harindiran" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <title>Dillon Harindiran</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="favicon.png" type="image/png" />
 </head>
 <body>
-    <!-- Fixed background: counsel-style (ripple grid + dot grid + gray swirls + grain) -->
-    <div class="bg-canvas" aria-hidden="true">
-        <div class="bg-ripple-wrap" id="bgRippleWrap">
-            <canvas id="bgRippleCanvas" aria-hidden="true"></canvas>
-        </div>
-        <div class="bg-dot-grid"></div>
-        <div class="bg-swirls">
-            <div class="bg-swirl bg-swirl-1"></div>
-            <div class="bg-swirl bg-swirl-2"></div>
-            <div class="bg-swirl bg-swirl-3"></div>
-            <div class="bg-swirl bg-swirl-4"></div>
-            <div class="bg-swirl bg-swirl-5"></div>
-        </div>
-        <div class="bg-grain"></div>
-    </div>
-
-    <!-- Main content -->
     <main class="main-content">
-        <section class="tile glass-e2">
-            <div id="textDisplay" class="copy copy-block"></div>
-        </section>
+        <div id="textDisplay" class="copy copy-block"></div>
     </main>
 
     <script>
-        // ----- Background ripple grid (Canvas-based, same as Counsel website) -----
-        (function () {
-            var CELL_SIZE = 40;
-            var activeRipples = [];
-            var hoveredCell = null;
-            var nextId = 0;
-            var timeouts = [];
-            var canvas = null;
-            var container = null;
-            var rows = 0;
-            var cols = 0;
-            var rafId = null;
-            var logicalWidth = 0;
-            var logicalHeight = 0;
-            var listenersBound = false;
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
-            function rippleDurationMs(row, col, rowsCount, colsCount) {
-                function toCorner(r, c) { return Math.hypot(row - r, col - c); }
-                var maxDist = Math.max(
-                    toCorner(0, 0),
-                    toCorner(0, colsCount - 1),
-                    toCorner(rowsCount - 1, 0),
-                    toCorner(rowsCount - 1, colsCount - 1)
-                );
-                return maxDist * 55 + (200 + maxDist * 80);
-            }
-
-            function rippleIntensity(phase) {
-                if (phase <= 0 || phase >= 1) return { scale: 1, opacity: 0.4 };
-                var scale = 1 + 0.15 * 4 * phase * (1 - phase);
-                var opacity = phase <= 0.5
-                    ? 0.4 + 0.5 * 2 * phase
-                    : 0.9 - 0.5 * 2 * (phase - 0.5);
-                return { scale: scale, opacity: opacity };
-            }
-
-            function getCellColors() {
-                if (!container) return { fill: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.08)' };
-                var style = getComputedStyle(container);
-                var fill = style.getPropertyValue('--cell-fill-color').trim() || 'rgba(255,255,255,0.06)';
-                var border = style.getPropertyValue('--cell-border-color').trim() || 'rgba(255,255,255,0.08)';
-                return { fill: fill, border: border };
-            }
-
-            function triggerRipple(row, col) {
-                if (document.documentElement.classList.contains('reduce-motion')) return;
-                var id = nextId++;
-                var startTime = performance.now();
-                activeRipples.push({ id: id, row: row, col: col, startTime: startTime });
-                var duration = rippleDurationMs(row, col, rows, cols);
-                timeouts.push(setTimeout(function () {
-                    activeRipples = activeRipples.filter(function (r) { return r.id !== id; });
-                }, duration));
-            }
-
-            function getCellFromEvent(e) {
-                if (!canvas) return null;
-                var rect = canvas.getBoundingClientRect();
-                var scaleX = logicalWidth / rect.width;
-                var scaleY = logicalHeight / rect.height;
-                var x = (e.clientX - rect.left) * scaleX;
-                var y = (e.clientY - rect.top) * scaleY;
-                var col = Math.floor(x / CELL_SIZE);
-                var row = Math.floor(y / CELL_SIZE);
-                if (col < 0 || col >= cols || row < 0 || row >= rows) return null;
-                return { row: row, col: col };
-            }
-
-            function draw(now) {
-                if (!canvas) return;
-                var ctx = canvas.getContext('2d');
-                if (!ctx) return;
-                var dpr = window.devicePixelRatio || 1;
-                var base = getCellColors();
-                ctx.save();
-                ctx.scale(dpr, dpr);
-                ctx.clearRect(0, 0, logicalWidth, logicalHeight);
-                var isHoveredIdx = hoveredCell ? hoveredCell.row * cols + hoveredCell.col : -1;
-                for (var idx = 0; idx < rows * cols; idx++) {
-                    var rowIdx = (idx / cols) | 0;
-                    var colIdx = idx % cols;
-                    var scale = 1;
-                    var opacity = 0.4;
-                    for (var i = 0; i < activeRipples.length; i++) {
-                        var r = activeRipples[i];
-                        var dist = Math.hypot(r.row - rowIdx, r.col - colIdx);
-                        var delay = dist * 55;
-                        var duration = 200 + dist * 80;
-                        var elapsed = now - r.startTime;
-                        var phase = 0;
-                        if (elapsed >= delay && elapsed < delay + duration) phase = (elapsed - delay) / duration;
-                        var out = rippleIntensity(phase);
-                        if (out.scale > scale) scale = out.scale;
-                        if (out.opacity > opacity) opacity = out.opacity;
-                    }
-                    var hovered = idx === isHoveredIdx;
-                    if (hovered) opacity = Math.max(opacity, 0.9);
-                    var cx = (colIdx + 0.5) * CELL_SIZE;
-                    var cy = (rowIdx + 0.5) * CELL_SIZE;
-                    ctx.save();
-                    ctx.translate(cx, cy);
-                    ctx.scale(scale, scale);
-                    ctx.translate(-CELL_SIZE / 2, -CELL_SIZE / 2);
-                    if (opacity > 0.4) {
-                        var whiteAlpha = Math.min((0.12 + (opacity - 0.4) * 0.5) * 0.8, 0.36);
-                        ctx.fillStyle = 'rgba(255,255,255,' + whiteAlpha + ')';
-                        ctx.strokeStyle = 'rgba(255,255,255,0.28)';
-                    } else {
-                        ctx.fillStyle = base.fill;
-                        ctx.strokeStyle = base.border;
-                    }
-                    ctx.globalAlpha = opacity;
-                    ctx.fillRect(0, 0, CELL_SIZE, CELL_SIZE);
-                    ctx.lineWidth = 0.5;
-                    ctx.strokeRect(0, 0, CELL_SIZE, CELL_SIZE);
-                    if (hovered) {
-                        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-                        ctx.lineWidth = 1;
-                        ctx.strokeRect(0, 0, CELL_SIZE, CELL_SIZE);
-                    }
-                    ctx.globalAlpha = 1;
-                    ctx.restore();
-                }
-                ctx.restore();
-                if (activeRipples.length > 0 || hoveredCell) rafId = requestAnimationFrame(draw);
-                else rafId = null;
-            }
-
-            function maybeStartDraw() {
-                if (rafId === null) rafId = requestAnimationFrame(draw);
-            }
-
-            function initCanvas() {
-                container = document.getElementById('bgRippleWrap');
-                canvas = document.getElementById('bgRippleCanvas');
-                if (!container || !canvas) return;
-                rows = Math.ceil(window.innerHeight / CELL_SIZE);
-                cols = Math.ceil(window.innerWidth / CELL_SIZE);
-                logicalWidth = cols * CELL_SIZE;
-                logicalHeight = rows * CELL_SIZE;
-                var dpr = window.devicePixelRatio || 1;
-                canvas.width = Math.round(logicalWidth * dpr);
-                canvas.height = Math.round(logicalHeight * dpr);
-                canvas.style.width = logicalWidth + 'px';
-                canvas.style.height = logicalHeight + 'px';
-                activeRipples = [];
-                hoveredCell = null;
-                timeouts.forEach(clearTimeout);
-                timeouts = [];
-                if (rafId != null) cancelAnimationFrame(rafId);
-                rafId = requestAnimationFrame(draw);
-                if (!listenersBound) {
-                    listenersBound = true;
-                    canvas.addEventListener('click', function (e) {
-                        var cell = getCellFromEvent(e);
-                        if (cell) { triggerRipple(cell.row, cell.col); maybeStartDraw(); }
-                    });
-                    canvas.addEventListener('mousemove', function (e) {
-                        var cell = getCellFromEvent(e);
-                        if (cell) hoveredCell = { row: cell.row, col: cell.col };
-                        else hoveredCell = null;
-                        maybeStartDraw();
-                    });
-                    canvas.addEventListener('mouseleave', function () { hoveredCell = null; maybeStartDraw(); });
-                }
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initCanvas);
-            } else {
-                initCanvas();
-            }
-            window.addEventListener('resize', initCanvas);
-        })();
-
-        // Fetch and display the original text content; first "Counsel" becomes a pill link
         fetch('index.txt')
-            .then((response) => response.text())
-            .then((text) => {
-                const container = document.getElementById('textDisplay');
-                function escapeHtml(s) {
-                    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-                }
-                var escaped = escapeHtml(text);
-                var withPill = escaped
-                    .replace('Counsel', '<a href="https://gc.inc" target="_blank" rel="noopener noreferrer" class="copy-pill">Counsel</a>')
-                    .replace('Neo', '<a href="https://www.neo.com" target="_blank" rel="noopener noreferrer" class="copy-pill">Neo</a>')
-                    .replace('JP Morgan', '<a href="https://www.jpmorgan.com/investment-banking/technology-investment-banking" target="_blank" rel="noopener noreferrer" class="copy-pill">JP Morgan</a>')
-                    .replace('calendly.com/dillon', '<a href="https://calendly.com/dillon" target="_blank" rel="noopener noreferrer" class="copy-pill">calendly.com/dillon</a>');
-                container.innerHTML = withPill;
+            .then(function (response) { return response.text(); })
+            .then(function (text) {
+                var escaped = escapeHtml(text.trim());
+                document.getElementById('textDisplay').innerHTML = escaped
+                    .replace('Context Systems', '<a href="https://www.contextsystems.com" target="_blank" rel="noopener noreferrer">Context Systems</a>')
+                    .replace('calendly.com/dillon', '<a href="https://calendly.com/dillon" target="_blank" rel="noopener noreferrer">calendly.com/dillon</a>');
             })
             .catch(function () {
                 document.getElementById('textDisplay').textContent = 'Failed to load content.';
             });
-
-        // Respect reduced motion preference
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) {
-            document.documentElement.classList.add('reduce-motion');
-        }
     </script>
 </body>
 </html>

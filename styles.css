@@ -1,494 +1,58 @@
-/* ============================================================================
-   GLASSMORPHIC DESIGN SYSTEM - DILLON.VC
-   Following the design language guidelines for premium glassmorphic UI
-   ============================================================================ */
-
-/* CSS Custom Properties - Counsel-style (black bg, white text, Inter) */
 :root {
-  /* Counsel-style: black background, white foreground */
-  --bg: #000000;
-  --surface: #000000;
-  --text: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.65);
-  
-  /* Glass / borders (counsel: border-white/5) */
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --glass-bg-low: rgba(255, 255, 255, 0.03);
-  --glass-bg-mid: rgba(255, 255, 255, 0.06);
-  --glass-bg-high: rgba(255, 255, 255, 0.12);
-  
-  /* Blur Levels */
-  --blur-sm: 4px;
-  --blur-md: 8px;
-  --blur-lg: 16px;
-  --blur-xl: 24px;
-  
-  /* Border Radius (counsel: --radius 0.5rem) */
-  --radius: 0.5rem;
-  --radius-card: var(--radius);
-  --radius-pill: 9999px;
-  
-  /* Shadows (subtle on dark) */
-  --shadow-low: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-mid: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-high: 0 12px 32px rgba(0, 0, 0, 0.5);
-  
-  /* Background: dot grid (counsel AnimatedBackground: #525252 1px, 24px, opacity 0.05) */
-  --grid-dot-color: #525252;
-  --grid-spacing: 24px;
-  --grid-opacity: 0.05;
-  
-  /* Ripple grid cells (counsel: Tailwind gray.700 / gray.900) */
-  --cell-border-color: #374151;
-  --cell-fill-color: #111827;
-  
-  /* Typography - Inter like counsel */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  
-  /* Spacing Scale */
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
+  --font-serif: 'EB Garamond', 'Times New Roman', serif;
 }
-
-/* ============================================================================
-   RESET & BASE STYLES
-   ============================================================================ */
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 html {
-  /* Allow the page to scroll; use dynamic viewport units to account for mobile browser UI */
   min-height: 100%;
   min-height: 100dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 body {
   margin: 0;
-  padding: 0;
   min-height: 100%;
   min-height: 100dvh;
-  font-family: var(--font-sans);
-  font-size: 1rem;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
   line-height: 1.6;
-  color: var(--text);
-  background: var(--bg);
-  overflow-x: hidden;
-  overflow-y: auto;
+  color: #000;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-::selection {
-  background: rgba(255, 255, 255, 0.3);
-  color: #000;
-}
 
-/* ============================================================================
-   LIVING BACKGROUND SYSTEM
-   ============================================================================ */
-
-.bg-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: auto;
-}
-
-/* Non-ripple layers don't capture clicks so ripple grid gets them */
-.bg-canvas > .bg-dot-grid,
-.bg-canvas > .bg-swirls,
-.bg-canvas > .bg-grain {
-  pointer-events: none;
-}
-
-.bg-ripple-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: auto;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#bgRippleCanvas {
-  display: block;
-  margin: auto;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-/* Dotted grid – counsel AnimatedBackground exact */
-.bg-dot-grid {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, var(--grid-dot-color) 1px, transparent 1px);
-  background-size: var(--grid-spacing) var(--grid-spacing);
-  opacity: var(--grid-opacity);
-}
-
-/* Swirling shapes – counsel AnimatedBackground (gray only) */
-.bg-swirls {
-  position: absolute;
-  inset: 0;
-}
-
-.bg-swirl {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.bg-swirl-1 {
-  width: 500px;
-  height: 500px;
-  top: 5%;
-  left: 15%;
-  background: radial-gradient(circle, #404040 0%, transparent 70%);
-  filter: blur(35px);
-  opacity: 0.2;
-  animation: counsel-swirl 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-.bg-swirl-2 {
-  width: 450px;
-  height: 450px;
-  top: 50%;
-  right: 10%;
-  background: radial-gradient(circle, #525252 0%, transparent 70%);
-  filter: blur(40px);
-  opacity: 0.15;
-  animation: counsel-swirl-slow 20s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
-}
-
-.bg-swirl-3 {
-  width: 400px;
-  height: 400px;
-  top: 25%;
-  left: 50%;
-  background: radial-gradient(circle, #404040 0%, transparent 65%);
-  filter: blur(45px);
-  opacity: 0.15;
-  animation: counsel-swirl-center 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  animation-delay: -5s;
-}
-
-.bg-swirl-4 {
-  width: 350px;
-  height: 350px;
-  bottom: 15%;
-  left: 5%;
-  background: radial-gradient(circle, #404040 0%, transparent 60%);
-  filter: blur(50px);
-  opacity: 0.12;
-  animation: counsel-swirl 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  animation-delay: -10s;
-}
-
-.bg-swirl-5 {
-  width: 380px;
-  height: 380px;
-  top: 20%;
-  right: 35%;
-  background: radial-gradient(circle, #525252 0%, transparent 65%);
-  filter: blur(40px);
-  opacity: 0.13;
-  animation: counsel-swirl-slow 20s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
-  animation-delay: -15s;
-}
-
-/* Grain overlay – counsel global.css .grain exact */
-.bg-grain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle at 25% 25%, #525252 2px, transparent 0),
-    radial-gradient(circle at 75% 75%, #737373 1px, transparent 0),
-    radial-gradient(circle at 25% 75%, #525252 0.5px, transparent 0),
-    radial-gradient(circle at 75% 25%, #737373 1.5px, transparent 0);
-  background-size: 100px 100px, 80px 80px, 120px 120px, 90px 90px;
-  opacity: 0.03;
-  animation: counsel-grain 8s steps(10) infinite;
-}
-
-/* ============================================================================
-   KEYFRAME ANIMATIONS (counsel tailwind exact)
-   ============================================================================ */
-
-@keyframes counsel-swirl {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(25px, -15px) scale(1.15); }
-  66% { transform: translate(-20px, 20px) scale(1.2); }
-}
-
-@keyframes counsel-swirl-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(25px, -15px) scale(1.15); }
-  66% { transform: translate(-20px, 20px) scale(1.2); }
-}
-
-@keyframes counsel-swirl-center {
-  0%, 100% { transform: translate(-50%, 0) scale(1); }
-  33% { transform: translate(calc(-50% + 25px), -15px) scale(1.15); }
-  66% { transform: translate(calc(-50% - 20px), 20px) scale(1.2); }
-}
-
-@keyframes counsel-grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  20% { transform: translate(-15%, 5%); }
-  30% { transform: translate(7%, -25%); }
-  40% { transform: translate(-5%, 25%); }
-  50% { transform: translate(-15%, 10%); }
-  60% { transform: translate(15%, 0%); }
-  70% { transform: translate(0%, 15%); }
-  80% { transform: translate(3%, 35%); }
-  90% { transform: translate(-10%, 10%); }
-}
-
-/* Reduced motion: ripple triggers are disabled in JS (triggerRipple returns early) */
-
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  .bg-swirl,
-  .bg-grain {
-    animation: none !important;
-  }
-  html.reduce-motion .bg-swirl,
-  html.reduce-motion .bg-grain {
-    animation: none !important;
-  }
-}
-
-/* ============================================================================
-   GLASS ELEVATION SYSTEM
-   ============================================================================ */
-
-.glass-e1 {
-  background: var(--glass-bg-low);
-  backdrop-filter: blur(var(--blur-sm));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-low);
-}
-
-.glass-e2 {
-  background: var(--glass-bg-mid);
-  backdrop-filter: blur(var(--blur-md));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-mid);
-}
-
-.glass-e3 {
-  background: var(--glass-bg-high);
-  backdrop-filter: blur(var(--blur-lg));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-high);
-}
-
-/* ============================================================================
-   MAIN CONTENT LAYOUT (counsel-style tile: black + border-white/5)
-   ============================================================================ */
-
-/* Counsel: max-w-content 90rem, px-6 lg:px-8. pointer-events: none so clicks pass through to ripple grid; tile captures clicks. */
 .main-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100dvh;
-  width: 100%;
-  max-width: 90rem;
-  margin: 0 auto;
-  padding: 1.5rem 1.5rem;
-  box-sizing: border-box;
-  pointer-events: none;
-}
-.main-content > .tile {
-  pointer-events: auto;
+  max-width: 42rem;
+  padding: 2.5rem 1.5rem;
+  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
 }
 
-@media (min-width: 1024px) {
-  .main-content {
-    padding: 1.5rem 2rem;
-  }
-}
-
-/* Max glass: heavy blur + saturate so the tile feels like a thick lens bending light */
-.tile {
-  width: 100%;
-  max-width: 800px;
-  border-radius: 1rem;
-  padding: var(--space-xl);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(40px) saturate(1.4) brightness(1.02);
-  -webkit-backdrop-filter: blur(40px) saturate(1.4) brightness(1.02);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 0 60px -20px rgba(255, 255, 255, 0.06),
-    0 12px 48px rgba(0, 0, 0, 0.35);
-  position: relative;
-}
-
-
-
-/* ============================================================================
-   TYPOGRAPHY SYSTEM
-   ============================================================================ */
-
-.tile-title {
-  font-family: var(--font-sans);
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--text);
-  margin: 0 0 var(--space-lg);
-}
-
-/* Counsel: text-white, secondary #6b7280 (gray-500) */
 .copy {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text);
   margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  text-align: justify;
 }
 
 .copy-block {
   white-space: pre-line;
 }
 
-/* Inline pill links (counsel-style: rounded-full, border-white/10, bg-white/5) */
-.copy-pill {
-  display: inline;
-  padding: 0.125rem 0.5rem;
-  margin: 0 0.05em;
-  font-size: inherit;
-  font-weight: 500;
+a {
   color: inherit;
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.08);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  font: inherit;
+  text-decoration: underline;
 }
-.copy-pill:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-.copy-pill:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
+
+a:focus-visible {
+  outline: 2px solid #000;
   outline-offset: 2px;
-}
-
-
-
-/* ============================================================================
-   RESPONSIVE DESIGN
-   ============================================================================ */
-
-@media (max-width: 768px) {
-  body {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .main-content {
-    padding: var(--space-xl) var(--space-md);
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-height: 100dvh;
-    height: auto;
-    /* Add breathing room so the last line isn't obstructed and is reachable */
-    padding-bottom: calc(var(--space-2xl) + env(safe-area-inset-bottom));
-  }
-
-  .tile {
-    padding: var(--space-xl);
-    margin-top: var(--space-lg);
-    width: 100%;
-    max-width: none;
-  }
-  
-  .copy {
-    font-size: 1.0625rem;
-    line-height: 1.6;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding: var(--space-lg) var(--space-sm);
-  }
-
-  .tile {
-    padding: var(--space-lg);
-    margin-top: var(--space-md);
-  }
-  
-  .copy {
-    font-size: 1rem;
-    line-height: 1.65;
-  }
-}
-
-/* ============================================================================
-   ACCESSIBILITY ENHANCEMENTS
-   ============================================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --glass-border: rgba(255, 255, 255, 0.3);
-  }
-  
-  .glass-e1, .glass-e2, .glass-e3 {
-    border-width: 2px;
-  }
-}
-
-/* Focus management */
-:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* Print styles */
-@media print {
-  .bg-canvas {
-    display: none;
-  }
-  
-  .tile {
-    background: white;
-    color: #111;
-    box-shadow: none;
-    border: 1px solid #ccc;
-  }
 }

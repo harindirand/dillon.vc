@@ -1,7 +1,7 @@
-Hi, I'm Dillon – a second-time founder based in London, building Counsel.
+Hi I'm Dillon. I live in London. I'm building Context Systems and you can often find me in NY and SF.
 
-Counsel is the context layer beneath legal AI. Law firms use dozens of tools, but none of them actually know who the client is, what the matter is, or what's already happened. We fix that – passively, with zero setup – so every application in the stack gets full contextual awareness from day one.
+We're organising institutional knowledge so law firms can finally unlock and use their decades of institutional knowledge across the tools they use.
 
-Before Counsel, I built Slipstream – a real-time credit bureau backed by Neo, with $1.1M from great investors. We solved the cold-start problem but hit the hard limit of unreliable real-time lender data. We returned funds and wound down. Before that, I worked on $8bn of TMT deals at JP Morgan.
+Before this, I built Slipstream. A real-time credit bureau that pivoted from rental-as-a-service.
 
-If you want to connect, you can grab a slot directly: calendly.com/dillon
+My diary is calendly.com/dillon.
