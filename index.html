@@ -5,36 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Dillon Harindiran: Building Context Systems. Based in London; often in NY and SF." />
     <meta name="author" content="Dillon Harindiran" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="color-scheme" content="light" />
     <title>Dillon Harindiran</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="favicon.png" type="image/png" />
 </head>
-<body>
-    <main class="main-content">
-        <div id="textDisplay" class="copy copy-block"></div>
-    </main>
-
-    <script>
-        function escapeHtml(s) {
-            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-
-        fetch('index.txt')
-            .then(function (response) { return response.text(); })
-            .then(function (text) {
-                var escaped = escapeHtml(text.trim());
-                document.getElementById('textDisplay').innerHTML = escaped
-                    .replace('Context Systems', '<a href="https://www.contextsystems.com" target="_blank" rel="noopener noreferrer">Context Systems</a>')
-                    .replace('calendly.com/dillon', '<a href="https://calendly.com/dillon" target="_blank" rel="noopener noreferrer">calendly.com/dillon</a>');
-            })
-            .catch(function () {
-                document.getElementById('textDisplay').textContent = 'Failed to load content.';
-            });
-    </script>
+<body bgcolor="#ffffff" text="#000000">
+    <p>Hi I'm Dillon. I live in London. I'm building <a href="https://www.contextsystems.com" target="_blank" rel="noopener noreferrer">Context Systems</a> and you can often find me in NY and SF.</p>
+    <p>We're organising institutional knowledge so law firms can finally unlock and use their decades of institutional knowledge across the tools they use.</p>
+    <p>Before this, I built Slipstream. A real-time credit bureau that pivoted from rental-as-a-service.</p>
+    <p>My diary is <a href="https://calendly.com/dillon" target="_blank" rel="noopener noreferrer">calendly.com/dillon</a>.</p>
 </body>
 </html>
