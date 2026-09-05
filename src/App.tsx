@@ -257,22 +257,9 @@ export default function App() {
       <div className="min-h-screen bg-background text-foreground">
         <div className="flex min-h-screen flex-col lg:flex-row">
           <aside className="paper-grid order-2 hidden w-full shrink-0 flex-col border-b border-border bg-card lg:order-1 lg:flex lg:h-screen lg:w-[400px] lg:border-b-0 lg:border-r">
-            <header className="px-7 pt-8 pb-6">
-              <h1 className="font-display text-[2.6rem]">
-                <span className="block text-[0.6rem] font-mono tracking-[0.24em] text-muted-foreground uppercase">
-                  Solar eclipse tracker
-                </span>
-                The next shadow
-                <br />
-                to cross the Earth
-              </h1>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Every upcoming solar eclipse, computed from lunar and solar ephemerides — with its
-                path of totality drawn on the globe.
-              </p>
-            </header>
+            <h1 className="sr-only">Upcoming solar eclipses</h1>
 
-            <section className="mx-7 rounded-md border border-border bg-secondary/40 p-4">
+            <section className="mx-7 mt-8 rounded-md border border-border bg-secondary/40 p-4">
               <h2 className="flex items-center gap-1.5 text-[0.65rem] tracking-[0.18em] text-muted-foreground uppercase">
                 <Clock className="size-3" />
                 Next eclipse in
