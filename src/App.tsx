@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Sun, Clock, MapPin, Timer } from "lucide-react";
 import { toast } from "sonner";
 import EclipseGlobe from "@/components/EclipseGlobe";
-import IntroTile from "@/components/IntroTile";
 import { nearestCity } from "@/lib/cities";
 import {
   Tooltip,
@@ -12,8 +11,6 @@ import {
 } from "@/components/ui/tooltip";
 import { upcomingSolarEclipses, type Eclipse, type EclipseKind } from "@/lib/eclipse";
 import { cn } from "@/lib/utils";
-
-const INTRO_KEY = "dillon-intro-closed";
 
 async function copyCoords(lat: number, lon: number) {
   const text = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
@@ -144,48 +141,10 @@ function useCountdown(to: Date | undefined) {
   };
 }
 
-function useIntroTile() {
-  const [open, setOpen] = useState(() => {
-    try {
-      return sessionStorage.getItem(INTRO_KEY) !== "1";
-    } catch {
-      return true;
-    }
-  });
-  const [leaving, setLeaving] = useState(false);
-
-  const close = useCallback(() => {
-    if (!open || leaving) return;
-    setLeaving(true);
-    window.setTimeout(() => {
-      setOpen(false);
-      setLeaving(false);
-      try {
-        sessionStorage.setItem(INTRO_KEY, "1");
-      } catch {
-        /* ignore private-mode quota */
-      }
-    }, 280);
-  }, [open, leaving]);
-
-  const reopen = useCallback(() => {
-    setLeaving(false);
-    setOpen(true);
-    try {
-      sessionStorage.removeItem(INTRO_KEY);
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  return { open, leaving, close, reopen };
-}
-
 export default function App() {
   const [eclipses, setEclipses] = useState<Eclipse[] | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("all");
-  const intro = useIntroTile();
 
   useEffect(() => {
     const id = requestAnimationFrame(() => {
@@ -296,8 +255,6 @@ export default function App() {
   return (
     <TooltipProvider delayDuration={120}>
       <div className="min-h-screen bg-background text-foreground">
-        <IntroTile open={intro.open} leaving={intro.leaving} onClose={intro.close} />
-
         <div className="flex min-h-screen flex-col lg:flex-row">
           <aside className="paper-grid order-2 hidden w-full shrink-0 flex-col border-b border-border bg-card lg:order-1 lg:flex lg:h-screen lg:w-[400px] lg:border-b-0 lg:border-r">
             <header className="px-7 pt-8 pb-6">
@@ -584,17 +541,14 @@ export default function App() {
               </div>
             </div>
 
-            {!intro.open ? (
-              <div className="pointer-events-none absolute top-4 left-4 z-30 lg:top-auto lg:bottom-8 lg:left-8">
-                <button
-                  type="button"
-                  onClick={intro.reopen}
-                  className="pointer-events-auto rounded-md border border-white/10 bg-black/30 px-3 py-1.5 text-[0.65rem] tracking-[0.18em] text-white/80 uppercase backdrop-blur-md transition-colors hover:border-white/25 hover:text-white"
-                >
-                  About Dillon
-                </button>
-              </div>
-            ) : null}
+            <div className="pointer-events-none absolute top-4 left-4 z-30 lg:top-auto lg:bottom-8 lg:left-8">
+              <a
+                href="/"
+                className="pointer-events-auto inline-block rounded-md border border-white/10 bg-black/30 px-3 py-1.5 text-[0.65rem] tracking-[0.18em] text-white/80 uppercase backdrop-blur-md transition-colors hover:border-white/25 hover:text-white"
+              >
+                Dillon Harindiran
+              </a>
+            </div>
 
             <div className="pointer-events-none absolute bottom-5 right-0 left-0 z-20 lg:hidden">
               <div
